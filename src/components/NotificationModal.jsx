@@ -26,9 +26,9 @@ export default function NotificationModal({ isOpen, onClose, systemStatus }) {
         overflow: 'hidden'
       }}>
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.25rem 1.5rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-          <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.125rem', fontWeight: 600 }}>
-            <Smartphone size={20} color="#06b6d4" />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.25rem 1.5rem', borderBottom: '1px solid var(--panel-border)' }}>
+          <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <Smartphone size={18} color="var(--text-primary)" />
             細胞廣播 / CMS 電子看板通報
           </h3>
           <button onClick={onClose} style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer' }}>
@@ -38,36 +38,36 @@ export default function NotificationModal({ isOpen, onClose, systemStatus }) {
 
         {/* Content */}
         <div style={{ padding: '1.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', color: '#f59e0b', fontSize: '0.875rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
             <Globe size={16} />
             系統偵測該區外籍漫遊比例達 32%，自動啟動多語文通報 (中/英/日/韓)
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {/* 中文 */}
-            <div style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', borderRadius: '8px' }}>
+            <div style={{ background: 'var(--bg-color)', border: '1px solid var(--panel-border)', padding: '1rem', borderRadius: '4px' }}>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>[中文]</span>
-              <p style={{ fontSize: '0.9rem', lineHeight: 1.5 }}>【交通快訊】{location}發生事故，該路段已封閉。請改道{alternativeStr}，預計延誤 {ete} 分鐘。請注意安全。</p>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.5, color: 'var(--text-primary)' }}>【交通快訊】{location}發生事故，該路段已封閉。請改道{alternativeStr}，預計延誤 {ete} 分鐘。請注意安全。</p>
             </div>
             {/* English */}
-            <div style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', borderRadius: '8px' }}>
+            <div style={{ background: 'var(--bg-color)', border: '1px solid var(--panel-border)', padding: '1rem', borderRadius: '4px' }}>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>[English]</span>
-              <p style={{ fontSize: '0.9rem', lineHeight: 1.5 }}>[Traffic Alert] Incident at {location}. Road closed. Please detour to alternative routes. Est. delay {ete} mins. Stay safe.</p>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.5, color: 'var(--text-primary)' }}>[Traffic Alert] Incident at {location}. Road closed. Please detour to alternative routes. Est. delay {ete} mins. Stay safe.</p>
             </div>
             {/* Japanese */}
-            <div style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', borderRadius: '8px' }}>
+            <div style={{ background: 'var(--bg-color)', border: '1px solid var(--panel-border)', padding: '1rem', borderRadius: '4px' }}>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>[日本語]</span>
-              <p style={{ fontSize: '0.9rem', lineHeight: 1.5 }}>【交通情報】{location}で事故が発生し、通行止めです。迂回してください。約{ete}分の遅れが見込まれます。</p>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.5, color: 'var(--text-primary)' }}>【交通情報】{location}で事故が発生し、通行止めです。迂回してください。約{ete}分の遅れが見込まれます。</p>
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div style={{ padding: '1.25rem 1.5rem', background: 'rgba(0,0,0,0.2)', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
-          <button onClick={onClose} style={{ padding: '0.5rem 1rem', background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '6px', color: '#fff', cursor: 'pointer' }}>
+        <div style={{ padding: '1.25rem 1.5rem', background: 'var(--panel-bg)', borderTop: '1px solid var(--panel-border)', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
+          <button onClick={onClose} style={{ padding: '0.5rem 1rem', background: 'transparent', border: '1px solid var(--panel-border)', borderRadius: '4px', color: 'var(--text-primary)', cursor: 'pointer' }}>
             取消
           </button>
-          <button onClick={() => { alert('已透過 API 派發多通路推播！'); onClose(); }} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', background: '#06b6d4', border: 'none', borderRadius: '6px', color: '#fff', fontWeight: 500, cursor: 'pointer' }}>
+          <button onClick={() => { alert('已透過 API 派發多通路推播！'); onClose(); }} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', background: 'var(--text-primary)', border: 'none', borderRadius: '4px', color: 'var(--bg-color)', fontWeight: 600, cursor: 'pointer' }}>
             <CheckCircle2 size={16} />
             一鍵發布 (全通路)
           </button>

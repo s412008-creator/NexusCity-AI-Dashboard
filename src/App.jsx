@@ -37,22 +37,22 @@ function App() {
           </div>
           <div className="stat-info">
             <h3>信義區總車流</h3>
-            <div className="value">4,205 <span style={{fontSize:'1rem', color:'#10b981'}}>↑ 12%</span></div>
+            <div className="value">4,205 <span style={{fontSize:'1rem', color:'var(--text-secondary)'}}>↑ 12%</span></div>
           </div>
         </div>
         
         <div className="col-span-3 glass-panel stat-card">
-          <div className="stat-icon" style={{ color: '#3b82f6' }}>
+          <div className="stat-icon">
             <Users size={24} />
           </div>
           <div className="stat-info">
             <h3>大巨蛋周邊人潮</h3>
-            <div className="value">18,520 <span style={{fontSize:'1rem', color:'#f59e0b'}}>↑ 34%</span></div>
+            <div className="value">18,520 <span style={{fontSize:'1rem', color:'var(--text-secondary)'}}>↑ 34%</span></div>
           </div>
         </div>
 
         <div className="col-span-3 glass-panel stat-card">
-          <div className="stat-icon" style={{ color: '#8b5cf6' }}>
+          <div className="stat-icon">
             <ShieldCheck size={24} />
           </div>
           <div className="stat-info">
@@ -61,13 +61,13 @@ function App() {
           </div>
         </div>
 
-        <div className="col-span-3 glass-panel stat-card" style={{ borderColor: isNormal ? 'var(--panel-border)' : 'rgba(239, 68, 68, 0.5)' }}>
-          <div className="stat-icon" style={{ color: isNormal ? '#10b981' : '#ef4444' }}>
+        <div className="col-span-3 glass-panel stat-card" style={{ borderColor: isNormal ? 'transparent' : 'var(--alert-red)' }}>
+          <div className="stat-icon" style={{ color: isNormal ? 'var(--text-secondary)' : 'var(--alert-red)' }}>
             <AlertTriangle size={24} />
           </div>
           <div className="stat-info">
             <h3>突發事件警報</h3>
-            <div className="value" style={{ color: isNormal ? '#10b981' : '#ef4444' }}>
+            <div className="value" style={{ color: isNormal ? 'var(--text-secondary)' : 'var(--alert-red)' }}>
               {isNormal ? '無異常' : '偵測到異常'}
             </div>
           </div>

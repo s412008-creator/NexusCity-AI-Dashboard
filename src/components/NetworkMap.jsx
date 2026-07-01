@@ -30,11 +30,11 @@ export default function NetworkMap({ systemStatus }) {
   const alternativeRoads = systemStatus.alternatives || [];
 
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative', background: 'rgba(0,0,0,0.2)', borderRadius: '8px' }}>
+    <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '4px' }}>
       <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
         
         {/* Draw background grid */}
-        <g stroke="rgba(255,255,255,0.05)" strokeWidth="0.5">
+        <g stroke="rgba(255,255,255,0.02)" strokeWidth="0.5">
           <line x1="0" y1="20" x2="100" y2="20" />
           <line x1="0" y1="40" x2="100" y2="40" />
           <line x1="0" y1="60" x2="100" y2="60" />
@@ -50,18 +50,18 @@ export default function NetworkMap({ systemStatus }) {
           const coord = layoutCoordinates[road.segment_id];
           if (!coord) return null;
 
-          let color = "#3b82f6"; // default blue
+          let color = "#52525b"; // default zinc-600
           let r = 2;
           
           if (isAlert) {
             if (road.segment_id === incidentRoad) {
-              color = "#ef4444"; // red for incident
+              color = "#dc2626"; // dark red for incident
               r = 4;
             } else if (alternativeRoads.includes(road.segment_id)) {
-              color = "#10b981"; // green for alternative
+              color = "#ffffff"; // pure white for alternative
               r = 3;
             } else {
-              color = "rgba(59, 130, 246, 0.3)"; // dim others
+              color = "#27272a"; // dim others
             }
           }
 
@@ -69,8 +69,8 @@ export default function NetworkMap({ systemStatus }) {
             <g key={road.segment_id}>
               {/* If it's an incident, draw a pulsing circle */}
               {isAlert && road.segment_id === incidentRoad && (
-                <circle cx={coord.x} cy={coord.y} r={8} fill="rgba(239, 68, 68, 0.3)">
-                  <animate attributeName="r" values="4;12;4" dur="1.5s" repeatCount="indefinite" />
+                <circle cx={coord.x} cy={coord.y} r={8} fill="rgba(220, 38, 38, 0.2)">
+                  <animate attributeName="r" values="4;12;4" dur="2s" repeatCount="indefinite" />
                 </circle>
               )}
               
@@ -79,7 +79,7 @@ export default function NetworkMap({ systemStatus }) {
                 x={coord.x} 
                 y={coord.y - 4} 
                 fontSize="3.5" 
-                fill={isAlert && road.segment_id === incidentRoad ? "#ef4444" : "#e2e8f0"} 
+                fill={isAlert && road.segment_id === incidentRoad ? "#ef4444" : (isAlert && alternativeRoads.includes(road.segment_id) ? "#ffffff" : "#71717a")} 
                 textAnchor="middle"
               >
                 {road.name}
@@ -90,10 +90,10 @@ export default function NetworkMap({ systemStatus }) {
       </svg>
 
       {/* Map Legend */}
-      <div style={{ position: 'absolute', bottom: 10, left: 10, fontSize: '0.7rem', display: 'flex', gap: '10px', background: 'rgba(0,0,0,0.5)', padding: '5px 10px', borderRadius: '4px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}><div style={{ width: 8, height: 8, borderRadius: '50%', background: '#3b82f6'}}></div> 正常路段</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}><div style={{ width: 8, height: 8, borderRadius: '50%', background: '#ef4444'}}></div> 事故塌陷</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}><div style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981'}}></div> 系統推薦替代路段</div>
+      <div style={{ position: 'absolute', bottom: 10, left: 10, fontSize: '0.7rem', display: 'flex', gap: '10px', background: 'var(--panel-bg)', border: '1px solid var(--panel-border)', padding: '5px 10px', borderRadius: '4px', color: 'var(--text-secondary)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}><div style={{ width: 8, height: 8, borderRadius: '50%', background: '#52525b'}}></div> 正常路段</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}><div style={{ width: 8, height: 8, borderRadius: '50%', background: '#dc2626'}}></div> 事故塌陷</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}><div style={{ width: 8, height: 8, borderRadius: '50%', background: '#ffffff'}}></div> 系統推薦替代路段</div>
       </div>
     </div>
   );

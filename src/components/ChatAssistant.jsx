@@ -35,49 +35,48 @@ export default function ChatAssistant() {
 
   return (
     <div className="chat-container" style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: '300px' }}>
-      <div className="chat-messages" style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        {messages.map((msg, idx) => (
-          <div key={idx} style={{ 
-            display: 'flex', 
-            gap: '0.75rem', 
-            alignItems: 'flex-start',
-            flexDirection: msg.role === 'user' ? 'row-reverse' : 'row'
-          }}>
+      {/* Messages */}
+      <div style={{ flex: 1, padding: '1rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        {messages.map((msg, i) => (
+          <div key={i} style={{ display: 'flex', gap: '0.5rem', flexDirection: msg.role === 'user' ? 'row-reverse' : 'row' }}>
             <div style={{ 
-              width: 32, height: 32, borderRadius: '50%', 
-              background: msg.role === 'user' ? '#3b82f6' : 'rgba(255,255,255,0.1)', 
-              display: 'flex', alignItems: 'center', justifyContent: 'center' 
+              width: 24, height: 24, borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+              background: msg.role === 'user' ? 'transparent' : 'var(--panel-border)',
+              border: msg.role === 'user' ? '1px solid var(--text-secondary)' : 'none',
+              color: msg.role === 'user' ? 'var(--text-secondary)' : 'var(--text-primary)'
             }}>
-              {msg.role === 'user' ? <User size={18} /> : <Bot size={18} color="#06b6d4" />}
+              {msg.role === 'user' ? <User size={14} /> : <Bot size={14} />}
             </div>
             <div style={{ 
-              background: msg.role === 'user' ? '#3b82f6' : 'rgba(255,255,255,0.05)', 
-              padding: '0.75rem 1rem', 
-              borderRadius: '12px',
-              borderTopRightRadius: msg.role === 'user' ? '0' : '12px',
-              borderTopLeftRadius: msg.role === 'bot' ? '0' : '12px',
-              maxWidth: '80%',
-              fontSize: '0.9rem',
-              lineHeight: '1.5'
+              background: msg.role === 'user' ? 'transparent' : 'var(--panel-border)',
+              border: msg.role === 'user' ? '1px solid var(--panel-border)' : '1px solid transparent',
+              color: 'var(--text-primary)',
+              padding: '0.75rem', borderRadius: '4px', fontSize: '0.85rem', lineHeight: 1.5,
+              maxWidth: '85%'
             }}>
               {msg.content}
             </div>
           </div>
         ))}
       </div>
-      <div style={{ padding: '1rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-        <div style={{ display: 'flex', gap: '0.5rem', background: 'rgba(0,0,0,0.2)', padding: '0.5rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)' }}>
+
+      {/* Input */}
+      <div style={{ padding: '1rem', borderTop: '1px solid var(--panel-border)' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--bg-color)', border: '1px solid var(--panel-border)', padding: '0.25rem', borderRadius: '4px' }}>
           <input 
             type="text" 
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-            placeholder="輸入假設性情境 (例: 若 BL17 人潮超過 4萬人)..." 
-            style={{ flex: 1, background: 'transparent', border: 'none', color: '#fff', outline: 'none', padding: '0 0.5rem' }}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+            placeholder="請輸入欲查詢之應變情境..." 
+            style={{ flex: 1, background: 'transparent', border: 'none', color: '#fff', padding: '0.5rem', outline: 'none', fontSize: '0.875rem' }}
           />
           <button 
             onClick={handleSend}
-            style={{ background: '#3b82f6', border: 'none', width: 32, height: 32, borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', cursor: 'pointer' }}
+            style={{ 
+              background: 'var(--text-primary)', border: 'none', color: 'var(--bg-color)', 
+              width: 36, height: 36, borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' 
+            }}
           >
             <Send size={16} />
           </button>

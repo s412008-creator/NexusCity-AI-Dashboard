@@ -58,24 +58,24 @@ export default function TrafficChart() {
         <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
           <defs>
             <linearGradient id="colorTraffic" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.3}/>
-              <stop offset="95%" stopColor="#06b6d4" stopOpacity={0}/>
+              <stop offset="5%" stopColor="#ffffff" stopOpacity={0.1}/>
+              <stop offset="95%" stopColor="#ffffff" stopOpacity={0}/>
             </linearGradient>
             <linearGradient id="colorCrowd" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
-              <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+              <stop offset="5%" stopColor="#71717a" stopOpacity={0.1}/>
+              <stop offset="95%" stopColor="#71717a" stopOpacity={0}/>
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
-          <XAxis dataKey="time" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-          <YAxis yAxisId="left" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-          <YAxis yAxisId="right" orientation="right" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+          <XAxis dataKey="time" stroke="#71717a" fontSize={11} tickLine={false} axisLine={false} />
+          <YAxis yAxisId="left" stroke="#71717a" fontSize={11} tickLine={false} axisLine={false} />
+          <YAxis yAxisId="right" orientation="right" stroke="#71717a" fontSize={11} tickLine={false} axisLine={false} />
           <Tooltip 
-            contentStyle={{ backgroundColor: 'rgba(17, 25, 40, 0.9)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
+            contentStyle={{ backgroundColor: '#09090b', border: '1px solid #27272a', borderRadius: '4px', fontSize: '12px' }}
             itemStyle={{ color: '#fff' }}
           />
-          <Area yAxisId="left" type="monotone" dataKey="traffic" name="車流量 (輛/區間)" stroke="#06b6d4" strokeWidth={3} fillOpacity={1} fill="url(#colorTraffic)" />
-          <Area yAxisId="right" type="monotone" dataKey="crowd" name="人潮數量 (人)" stroke="#3b82f6" strokeWidth={3} fillOpacity={1} fill="url(#colorCrowd)" />
+          <Area yAxisId="left" type="monotone" dataKey="traffic" name="車流量 (輛)" stroke="#ffffff" strokeWidth={2} fillOpacity={1} fill="url(#colorTraffic)" />
+          <Area yAxisId="right" type="monotone" dataKey="crowd" name="人潮數量 (人)" stroke="#71717a" strokeWidth={2} fillOpacity={1} fill="url(#colorCrowd)" />
         </AreaChart>
       </ResponsiveContainer>
     </div>

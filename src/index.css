@@ -1,13 +1,12 @@
 :root {
-  --bg-color: #050a15;
-  --panel-bg: rgba(17, 25, 40, 0.75);
-  --panel-border: rgba(255, 255, 255, 0.125);
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --accent-blue: #3b82f6;
-  --accent-cyan: #06b6d4;
-  --alert-red: #ef4444;
-  --warn-yellow: #f59e0b;
+  --bg-color: #000000;
+  --panel-bg: #09090b;
+  --panel-border: #27272a;
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --accent-primary: #ffffff;
+  --alert-red: #dc2626;
+  --warn-yellow: #ca8a04;
   
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   color-scheme: dark;
@@ -23,20 +22,14 @@ body {
   background-color: var(--bg-color);
   color: var(--text-primary);
   min-height: 100vh;
-  /* background pattern for tech feel */
-  background-image: 
-    radial-gradient(circle at 15% 50%, rgba(6, 182, 212, 0.08), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08), transparent 25%);
+  /* Removed tech pattern gradient, keeping it solid black */
   overflow: hidden;
 }
 
 .glass-panel {
   background: var(--panel-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--panel-border);
-  border-radius: 12px;
-  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+  /* Removed blur and rounding for enterprise flat design */
+  border-radius: 0;
 }
 
 /* Scrollbar styling */
