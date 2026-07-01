@@ -1,19 +1,18 @@
 :root {
-  --bg-color: #050505; /* 極深的背景，不完全純黑 */
-  --panel-bg: #111113;
-  --panel-border: #27272a;
-  --text-primary: #f4f4f5;
-  --text-secondary: #a1a1aa;
+  --bg-color: #030305; /* 更深邃的黑 */
+  --panel-bg: rgba(17, 17, 19, 0.6); /* 半透明玻璃底 */
+  --panel-border: rgba(255, 255, 255, 0.08); /* 半透明高光邊框 */
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
   
-  /* 穩重的企業三原色 */
-  --accent-primary: #3b82f6; /* 企業藍：沈穩、專業 */
-  --accent-secondary: #d97706; /* 琥珀金：溫和的次要強調 */
-  --accent-success: #059669; /* 翡翠綠：安全、替代路線 */
+  --accent-primary: #38bdf8; /* 更現代、明亮的 Sky Blue */
+  --accent-secondary: #fbbf24; /* 明亮琥珀 */
+  --accent-success: #34d399; /* 明亮翡翠 */
   
-  --alert-red: #dc2626;
-  --warn-yellow: #ca8a04;
+  --alert-red: #ef4444;
+  --warn-yellow: #f59e0b;
   
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   color-scheme: dark;
 }
 
@@ -25,22 +24,40 @@
 
 body {
   background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(52, 211, 153, 0.05), transparent 25%);
+  background-attachment: fixed;
   color: var(--text-primary);
   min-height: 100vh;
-  /* Removed tech pattern gradient, keeping it solid black */
   overflow: hidden;
 }
 
 .glass-panel {
   background: var(--panel-bg);
-  border-radius: 4px; /* 極微小的圓角更精緻 */
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-radius: 12px; /* 現代感大圓角 */
   border: 1px solid var(--panel-border);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 加上玻璃頂部的一絲高光反射 (Glossy Reflection) */
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  z-index: 10;
 }
 
 .glass-panel:hover {
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(56, 189, 248, 0.1);
   transform: translateY(-2px);
 }
 
