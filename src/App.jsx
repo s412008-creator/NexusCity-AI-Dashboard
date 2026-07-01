@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import Layout from './components/Layout';
-import TrafficChart from './components/TrafficChart';
-import ChatAssistant from './components/ChatAssistant';
-import DecisionPanel from './components/DecisionPanel';
 import IncidentManager from './components/IncidentManager';
 import NotificationModal from './components/NotificationModal';
-import NetworkMap from './components/NetworkMap';
+
+// 動態載入大型元件 (Code-Splitting) 以大幅提升首屏載入速度
+const TrafficChart = lazy(() => import('./components/TrafficChart'));
+const ChatAssistant = lazy(() => import('./components/ChatAssistant'));
+const DecisionPanel = lazy(() => import('./components/DecisionPanel'));
+const NetworkMap = lazy(() => import('./components/NetworkMap'));
 import { Users, Car, AlertTriangle, ShieldCheck } from 'lucide-react';
 import './App.css';
 
@@ -154,7 +156,13 @@ function App() {
       }
     >
       <div className="dashboard-grid">
-        {renderContent()}
+        <Suspense fallback={
+          <div className="col-span-12" style={{ padding: '3rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
+            <div style={{ marginBottom: '1rem', opacity: 0.5 }}>模組載入中 (Loading Module...)</div>
+          </div>
+        }>
+          {renderContent()}
+        </Suspense>
       </div>
 
       <NotificationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} systemStatus={systemStatus} />
