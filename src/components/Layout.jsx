@@ -28,10 +28,7 @@ export default function Layout({ children, headerActions, activeTab, setActiveTa
             <AlertTriangle size={20} />
             事件注入管理
           </div>
-          <div onClick={() => setActiveTab('consulting')} className={`nav-item ${activeTab === 'consulting' ? 'active' : ''}`}>
-            <MessageSquareWarning size={20} />
-            策略諮詢顧問
-          </div>
+
           <div onClick={() => setActiveTab('settings')} className={`nav-item ${activeTab === 'settings' ? 'active' : ''}`}>
             <Settings size={20} />
             系統設定

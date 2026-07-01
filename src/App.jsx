@@ -8,7 +8,7 @@ const TrafficChart = lazy(() => import('./components/TrafficChart'));
 const ChatAssistant = lazy(() => import('./components/ChatAssistant'));
 const DecisionPanel = lazy(() => import('./components/DecisionPanel'));
 const NetworkMap = lazy(() => import('./components/NetworkMap'));
-import { Users, Car, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Users, Car, AlertTriangle, ShieldCheck, MessageCircle, X } from 'lucide-react';
 import './App.css';
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
   });
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const isNormal = systemStatus.status === 'normal';
 
   const renderContent = () => {
@@ -98,15 +99,6 @@ function App() {
           </>
         );
 
-      case 'consulting':
-        return (
-          <div className="col-span-12 glass-panel animate-fade-in" style={{ display: 'flex', flexDirection: 'column', height: '70vh' }}>
-            <div className="panel-header">
-              <h2 className="panel-title">互動式策略諮詢</h2>
-            </div>
-            <ChatAssistant />
-          </div>
-        );
 
       case 'settings':
         return (
@@ -166,6 +158,29 @@ function App() {
       </div>
 
       <NotificationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} systemStatus={systemStatus} />
+      
+      {/* 浮動聊天機器人 Floating Chat Widget */}
+      <div className="chat-fab" onClick={() => setIsChatOpen(!isChatOpen)}>
+        {isChatOpen ? <X size={28} /> : <MessageCircle size={28} />}
+      </div>
+      
+      {isChatOpen && (
+        <div className="chat-widget">
+          <div className="panel-header">
+            <h2 className="panel-title" style={{ fontSize: '1rem', background: 'linear-gradient(135deg, #38bdf8, #fff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              <MessageCircle size={18} color="#38bdf8" /> 策略諮詢顧問
+            </h2>
+            <button onClick={() => setIsChatOpen(false)} style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer' }}>
+              <X size={20} />
+            </button>
+          </div>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+            <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>載入中...</div>}>
+              <ChatAssistant />
+            </Suspense>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 }
