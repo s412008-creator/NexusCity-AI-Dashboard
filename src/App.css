@@ -124,9 +124,7 @@
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 1px;
-  background: var(--panel-border);
-  border: 1px solid var(--panel-border);
+  gap: 1.5rem; /* 增加留白，不要擠在一起 */
   margin: 2rem;
 }
 

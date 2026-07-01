@@ -31,7 +31,7 @@ function App() {
     >
       <div className="dashboard-grid">
         {/* Top Stat Cards */}
-        <div className="col-span-3 glass-panel stat-card">
+        <div className="col-span-3 glass-panel stat-card animate-fade-in" style={{ animationDelay: '0.1s' }}>
           <div className="stat-icon">
             <Car size={24} />
           </div>
@@ -41,7 +41,7 @@ function App() {
           </div>
         </div>
         
-        <div className="col-span-3 glass-panel stat-card">
+        <div className="col-span-3 glass-panel stat-card animate-fade-in" style={{ animationDelay: '0.2s' }}>
           <div className="stat-icon">
             <Users size={24} />
           </div>
@@ -51,7 +51,7 @@ function App() {
           </div>
         </div>
 
-        <div className="col-span-3 glass-panel stat-card">
+        <div className="col-span-3 glass-panel stat-card animate-fade-in" style={{ animationDelay: '0.3s' }}>
           <div className="stat-icon">
             <ShieldCheck size={24} />
           </div>
@@ -61,7 +61,7 @@ function App() {
           </div>
         </div>
 
-        <div className="col-span-3 glass-panel stat-card" style={{ borderColor: isNormal ? 'transparent' : 'var(--alert-red)' }}>
+        <div className="col-span-3 glass-panel stat-card animate-fade-in" style={{ animationDelay: '0.4s', borderColor: isNormal ? '' : 'var(--alert-red)' }}>
           <div className="stat-icon" style={{ color: isNormal ? 'var(--text-secondary)' : 'var(--alert-red)' }}>
             <AlertTriangle size={24} />
           </div>
@@ -74,7 +74,7 @@ function App() {
         </div>
 
         {/* Chart Section */}
-        <div className="col-span-8 glass-panel">
+        <div className="col-span-8 glass-panel animate-fade-in" style={{ animationDelay: '0.5s' }}>
           <div className="panel-header">
             <h2 className="panel-title">動態時序車人流監測 (Live Time-Series)</h2>
             <div className="status-badge">
@@ -88,7 +88,7 @@ function App() {
         </div>
 
         {/* AI Decision Panel */}
-        <div className="col-span-4 glass-panel">
+        <div className="col-span-4 glass-panel animate-fade-in" style={{ animationDelay: '0.6s' }}>
           <div className="panel-header">
             <h2 className="panel-title">AI 推理與決策分析</h2>
           </div>
@@ -98,7 +98,7 @@ function App() {
         </div>
 
         {/* Map Placeholder */}
-        <div className="col-span-8 glass-panel">
+        <div className="col-span-8 glass-panel animate-fade-in" style={{ animationDelay: '0.7s' }}>
           <div className="panel-header">
             <h2 className="panel-title">智慧路網與疏散路徑</h2>
           </div>
@@ -108,7 +108,7 @@ function App() {
         </div>
 
         {/* Chat Assistant */}
-        <div className="col-span-4 glass-panel" style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className="col-span-4 glass-panel animate-fade-in" style={{ display: 'flex', flexDirection: 'column', animationDelay: '0.8s' }}>
           <div className="panel-header">
             <h2 className="panel-title">互動式策略諮詢</h2>
           </div>
