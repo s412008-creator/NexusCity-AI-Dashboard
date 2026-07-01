@@ -2,6 +2,7 @@ import React, { useState, Suspense, lazy } from 'react';
 import Layout from './components/Layout';
 import IncidentManager from './components/IncidentManager';
 import NotificationModal from './components/NotificationModal';
+import { useCityData } from './hooks/useCityData';
 
 // 動態載入大型元件 (Code-Splitting) 以大幅提升首屏載入速度
 const TrafficChart = lazy(() => import('./components/TrafficChart'));
@@ -22,6 +23,8 @@ function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const isNormal = systemStatus.status === 'normal';
 
+  const cityData = useCityData();
+
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
@@ -32,7 +35,10 @@ function App() {
               <div className="stat-icon"><Car size={24} /></div>
               <div className="stat-info">
                 <h3>信義區總車流</h3>
-                <div className="value">4,205 <span style={{fontSize:'1rem', color:'var(--text-secondary)'}}>↑ 12%</span></div>
+                <div className="value">
+                  {cityData.isLoading ? '...' : cityData.totalTraffic.toLocaleString()} 
+                  <span style={{fontSize:'1rem', color:'var(--text-secondary)', marginLeft: '8px'}}>Vehicles</span>
+                </div>
               </div>
             </div>
             
@@ -40,7 +46,12 @@ function App() {
               <div className="stat-icon"><Users size={24} /></div>
               <div className="stat-info">
                 <h3>大巨蛋周邊人潮</h3>
-                <div className="value">18,520 <span style={{fontSize:'1rem', color:'var(--text-secondary)'}}>↑ 34%</span></div>
+                <div className="value">
+                  {cityData.isLoading ? '...' : cityData.domeCrowd.toLocaleString()} 
+                  <span style={{fontSize:'0.8rem', color:'var(--text-secondary)', marginLeft: '8px', fontWeight: 'normal'}}>
+                    漫遊比 {cityData.isLoading ? '-' : cityData.roamingPct}
+                  </span>
+                </div>
               </div>
             </div>
 
