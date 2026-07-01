@@ -117,7 +117,7 @@ function App() {
 
       </div>
 
-      <NotificationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <NotificationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} systemStatus={systemStatus} />
     </Layout>
   );
 }
