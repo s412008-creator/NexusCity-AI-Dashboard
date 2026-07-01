@@ -8,7 +8,8 @@ import {
   Tooltip,
   ResponsiveContainer,
   Area,
-  AreaChart
+  AreaChart,
+  Brush
 } from 'recharts';
 import Papa from 'papaparse';
 import trafficCsv from '../data/city_traffic_flow.csv?raw';
@@ -76,6 +77,15 @@ export default function TrafficChart() {
           />
           <Area yAxisId="left" type="monotone" dataKey="traffic" name="車流量 (輛)" stroke="#ffffff" strokeWidth={2} fillOpacity={1} fill="url(#colorTraffic)" />
           <Area yAxisId="right" type="monotone" dataKey="crowd" name="人潮數量 (人)" stroke="#71717a" strokeWidth={2} fillOpacity={1} fill="url(#colorCrowd)" />
+          
+          <Brush 
+            dataKey="time" 
+            height={20} 
+            stroke="#71717a" 
+            fill="var(--panel-bg)"
+            tickFormatter={() => ''}
+            style={{ cursor: 'ew-resize' }}
+          />
         </AreaChart>
       </ResponsiveContainer>
     </div>

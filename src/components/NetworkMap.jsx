@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import roadData from '../data/road_network_geometry.json';
 
 // 給定每條路的假想座標 (x, y) 範圍 0~100
@@ -23,6 +23,7 @@ const layoutCoordinates = {
 };
 
 export default function NetworkMap({ systemStatus }) {
+  const [hoveredRoad, setHoveredRoad] = useState(null);
   const isAlert = systemStatus.status === 'alert';
   
   // 動態取得事件影響路段與替代道路
@@ -64,26 +65,62 @@ export default function NetworkMap({ systemStatus }) {
               color = "#27272a"; // dim others
             }
           }
+          
+          const isHovered = hoveredRoad === road.segment_id;
 
           return (
-            <g key={road.segment_id}>
+            <g 
+              key={road.segment_id} 
+              onMouseEnter={() => setHoveredRoad(road.segment_id)}
+              onMouseLeave={() => setHoveredRoad(null)}
+              style={{ cursor: 'pointer', transition: 'all 0.2s ease' }}
+            >
               {/* If it's an incident, draw a pulsing circle */}
               {isAlert && road.segment_id === incidentRoad && (
-                <circle cx={coord.x} cy={coord.y} r={8} fill="rgba(220, 38, 38, 0.2)">
-                  <animate attributeName="r" values="4;12;4" dur="2s" repeatCount="indefinite" />
+                <circle cx={coord.x} cy={coord.y} r={isHovered ? 10 : 8} fill="rgba(220, 38, 38, 0.2)">
+                  <animate attributeName="r" values={isHovered ? "6;14;6" : "4;12;4"} dur="2s" repeatCount="indefinite" />
                 </circle>
               )}
               
-              <circle cx={coord.x} cy={coord.y} r={r} fill={color} />
+              <circle cx={coord.x} cy={coord.y} r={isHovered ? r + 1.5 : r} fill={isHovered ? '#fff' : color} />
+              
+              {/* Background rect for hover tooltip to improve readability */}
+              {isHovered && (
+                <rect 
+                  x={coord.x - 15} 
+                  y={coord.y - 12} 
+                  width={30} 
+                  height={7} 
+                  fill="var(--bg-color)" 
+                  stroke="var(--panel-border)"
+                  strokeWidth="0.5"
+                  rx="1"
+                />
+              )}
+              
               <text 
                 x={coord.x} 
                 y={coord.y - 4} 
-                fontSize="3.5" 
-                fill={isAlert && road.segment_id === incidentRoad ? "#ef4444" : (isAlert && alternativeRoads.includes(road.segment_id) ? "#ffffff" : "#71717a")} 
+                fontSize={isHovered ? "4" : "3.5"} 
+                fontWeight={isHovered ? "bold" : "normal"}
+                fill={
+                  isAlert && road.segment_id === incidentRoad 
+                    ? "#ef4444" 
+                    : (isAlert && alternativeRoads.includes(road.segment_id) ? "#ffffff" : "#71717a")
+                } 
                 textAnchor="middle"
               >
                 {road.name}
               </text>
+              
+              {/* Extra tooltip text on hover */}
+              {isHovered && (
+                <text x={coord.x} y={coord.y - 7} fontSize="2.5" fill="var(--text-secondary)" textAnchor="middle">
+                  {isAlert && road.segment_id === incidentRoad ? '事故封閉中' : 
+                   isAlert && alternativeRoads.includes(road.segment_id) ? '系統推薦路線' : 
+                   `容量: ${road.capacity} 輛`}
+                </text>
+              )}
             </g>
           );
         })}
