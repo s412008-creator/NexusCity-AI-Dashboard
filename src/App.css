@@ -43,17 +43,24 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
-  border-radius: 6px;
+  border-radius: 4px;
   color: var(--text-secondary);
   text-decoration: none;
   transition: all 0.2s ease;
   cursor: pointer;
   font-size: 0.875rem;
+  border-left: 3px solid transparent; /* 預留左側 border 空間 */
 }
 
-.nav-item:hover, .nav-item.active {
-  background: rgba(255, 255, 255, 0.05);
+.nav-item:hover {
+  background: rgba(59, 130, 246, 0.05); /* 企業藍的極淡底色 */
+  color: var(--text-primary);
+}
+
+.nav-item.active {
+  background: rgba(59, 130, 246, 0.1);
   color: var(--accent-primary);
+  border-left: 3px solid var(--accent-primary);
 }
 
 .main-content {

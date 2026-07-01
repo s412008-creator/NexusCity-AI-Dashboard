@@ -59,12 +59,12 @@ export default function TrafficChart() {
         <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
           <defs>
             <linearGradient id="colorTraffic" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#ffffff" stopOpacity={0.1}/>
-              <stop offset="95%" stopColor="#ffffff" stopOpacity={0}/>
+              <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.2}/>
+              <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
             </linearGradient>
             <linearGradient id="colorCrowd" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#71717a" stopOpacity={0.1}/>
-              <stop offset="95%" stopColor="#71717a" stopOpacity={0}/>
+              <stop offset="5%" stopColor="#d97706" stopOpacity={0.2}/>
+              <stop offset="95%" stopColor="#d97706" stopOpacity={0}/>
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
@@ -75,8 +75,8 @@ export default function TrafficChart() {
             contentStyle={{ backgroundColor: '#09090b', border: '1px solid #27272a', borderRadius: '4px', fontSize: '12px' }}
             itemStyle={{ color: '#fff' }}
           />
-          <Area yAxisId="left" type="monotone" dataKey="traffic" name="車流量 (輛)" stroke="#ffffff" strokeWidth={2} fillOpacity={1} fill="url(#colorTraffic)" />
-          <Area yAxisId="right" type="monotone" dataKey="crowd" name="人潮數量 (人)" stroke="#71717a" strokeWidth={2} fillOpacity={1} fill="url(#colorCrowd)" />
+          <Area yAxisId="left" type="monotone" dataKey="traffic" name="車流量 (輛)" stroke="#3b82f6" strokeWidth={2} fillOpacity={1} fill="url(#colorTraffic)" />
+          <Area yAxisId="right" type="monotone" dataKey="crowd" name="人潮數量 (人)" stroke="#d97706" strokeWidth={2} fillOpacity={1} fill="url(#colorCrowd)" />
           
           <Brush 
             dataKey="time" 

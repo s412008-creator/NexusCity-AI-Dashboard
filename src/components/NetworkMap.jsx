@@ -51,7 +51,7 @@ export default function NetworkMap({ systemStatus }) {
           const coord = layoutCoordinates[road.segment_id];
           if (!coord) return null;
 
-          let color = "#52525b"; // default zinc-600
+          let color = "#334155"; // 深藍灰 Slate 700 替代原本的灰色
           let r = 2;
           
           if (isAlert) {
@@ -59,10 +59,10 @@ export default function NetworkMap({ systemStatus }) {
               color = "#dc2626"; // dark red for incident
               r = 4;
             } else if (alternativeRoads.includes(road.segment_id)) {
-              color = "#ffffff"; // pure white for alternative
+              color = "#059669"; // 深翡翠綠 Emerald 600
               r = 3;
             } else {
-              color = "#27272a"; // dim others
+              color = "#1e293b"; // dim others (Slate 800)
             }
           }
           
@@ -106,7 +106,7 @@ export default function NetworkMap({ systemStatus }) {
                 fill={
                   isAlert && road.segment_id === incidentRoad 
                     ? "#ef4444" 
-                    : (isAlert && alternativeRoads.includes(road.segment_id) ? "#ffffff" : "#71717a")
+                    : (isAlert && alternativeRoads.includes(road.segment_id) ? "#10b981" : "#94a3b8")
                 } 
                 textAnchor="middle"
               >
@@ -128,9 +128,9 @@ export default function NetworkMap({ systemStatus }) {
 
       {/* Map Legend */}
       <div style={{ position: 'absolute', bottom: 10, left: 10, fontSize: '0.7rem', display: 'flex', gap: '10px', background: 'var(--panel-bg)', border: '1px solid var(--panel-border)', padding: '5px 10px', borderRadius: '4px', color: 'var(--text-secondary)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}><div style={{ width: 8, height: 8, borderRadius: '50%', background: '#52525b'}}></div> 正常路段</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}><div style={{ width: 8, height: 8, borderRadius: '50%', background: '#334155'}}></div> 正常路段</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}><div style={{ width: 8, height: 8, borderRadius: '50%', background: '#dc2626'}}></div> 事故塌陷</div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}><div style={{ width: 8, height: 8, borderRadius: '50%', background: '#ffffff'}}></div> 系統推薦替代路段</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}><div style={{ width: 8, height: 8, borderRadius: '50%', background: '#059669'}}></div> 系統推薦替代路段</div>
       </div>
     </div>
   );
