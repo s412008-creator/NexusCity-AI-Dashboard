@@ -58,6 +58,10 @@ export default function ChatAssistant() {
         fallbackResponse = `光復南路發生重大事故。根據 SOP 第 1 條「重大交通事故」：\n此為 Critical 級別，建議立即封鎖該路段，並透過資訊可變標誌 (CMS) 導引車流改道至市民大道與仁愛路。`;
       } else if (userMsg.includes('號誌') || userMsg.includes('故障')) {
         fallbackResponse = `偵測到號誌異常。建議立即通知轄區分局派員進行人工交通指揮，並降低周邊路段的速限。`;
+      } else if (userMsg.includes('你好') || userMsg.includes('嗨') || userMsg.includes('hello')) {
+        fallbackResponse = `指揮官您好！我是 CityAI 交通應變顧問（目前處於高安全性備援模式），隨時為您分析即時路況與大會 SOP。您可以試著問我關於「大巨蛋散場」或是「光復南路」的情境！`;
+      } else if (userMsg.includes('天氣')) {
+        fallbackResponse = `目前的系統未介接氣象署 API，但我能為您分析極端氣候（如暴雨）對信義區路網承載量的影響，是否需要載入防汛 SOP？`;
       }
 
       // 模擬 AI 思考延遲

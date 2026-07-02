@@ -85,6 +85,24 @@ function App() {
                 <TrafficChart />
               </div>
             </div>
+
+            {/* AI 推理與地圖 (應要求整併至首頁，創造戰情室滿版視覺) */}
+            <div className="col-span-4 glass-panel animate-fade-in" style={{ animationDelay: '0.6s' }}>
+              <div className="panel-header">
+                <h2 className="panel-title">AI 推理與決策分析</h2>
+              </div>
+              <div className="panel-content" style={{ height: '400px', overflowY: 'auto' }}>
+                <DecisionPanel systemStatus={systemStatus} />
+              </div>
+            </div>
+            <div className="col-span-8 glass-panel animate-fade-in" style={{ animationDelay: '0.7s' }}>
+              <div className="panel-header">
+                <h2 className="panel-title">智慧路網與疏散路徑</h2>
+              </div>
+              <div className="panel-content" style={{ height: '400px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <NetworkMap systemStatus={systemStatus} />
+              </div>
+            </div>
           </>
         );
 
