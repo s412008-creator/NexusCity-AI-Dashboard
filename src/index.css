@@ -34,8 +34,13 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   overflow: hidden;
+  overscroll-behavior: none; /* 禁用捲動洩漏，防止畫面被往上推死 */
   position: relative;
   z-index: 0;
+}
+
+html {
+  overscroll-behavior: none;
 }
 
 /* 現代網站流動極光特效 (Aurora Glow) */
