@@ -11,11 +11,14 @@ export default function ChatAssistant() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const chatEndRef = useRef(null);
-  
-  // 自動置底 (加入 block: nearest 避免連帶捲動整個網頁)
+  const scrollContainerRef = useRef(null);
+
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (scrollContainerRef.current) {
+      // 避免使用 scrollIntoView() 造成外層網頁被暴力捲動，改用原生的 scrollTop 控制
+      const container = scrollContainerRef.current;
+      container.scrollTop = container.scrollHeight;
+    }
   }, [messages]);
 
   // 主動預警機制：掛載後 3.5 秒自動推送一則分析預警
@@ -96,26 +99,36 @@ export default function ChatAssistant() {
     }
   };
 
-
-
   return (
     <div className="chat-container" style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: '300px' }}>
-      <div style={{ flex: 1, padding: '1rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        {messages.map((msg, i) => (
-          <div key={i} style={{ display: 'flex', gap: '0.5rem', flexDirection: msg.role === 'user' ? 'row-reverse' : 'row' }}>
-            <div style={{ 
-              width: 24, height: 24, borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-              background: msg.role === 'user' ? 'transparent' : 'var(--panel-border)',
-              border: msg.role === 'user' ? '1px solid var(--text-secondary)' : 'none',
-              color: msg.role === 'user' ? 'var(--text-secondary)' : 'var(--text-primary)'
+      <div 
+        ref={scrollContainerRef}
+        style={{ flex: 1, padding: '1rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}
+      >
+        {messages.map((msg, idx) => (
+          <div key={idx} style={{
+            display: 'flex',
+            gap: '0.75rem',
+            alignItems: 'flex-start',
+            flexDirection: msg.role === 'user' ? 'row-reverse' : 'row'
+          }}>
+            <div style={{
+              width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: msg.role === 'user' ? 'var(--accent-primary)' : 'rgba(255, 255, 255, 0.1)',
+              color: 'white'
             }}>
-              {msg.role === 'user' ? <User size={14} /> : <Bot size={14} />}
+              {msg.role === 'user' ? <User size={16} /> : <Bot size={16} />}
             </div>
-            <div style={{ 
-              background: msg.role === 'user' ? 'transparent' : 'var(--panel-border)',
-              border: msg.role === 'user' ? '1px solid var(--panel-border)' : '1px solid transparent',
+            <div style={{
+              background: msg.role === 'user' ? 'var(--accent-primary)' : 'rgba(255, 255, 255, 0.05)',
+              padding: '0.75rem 1rem',
+              borderRadius: '12px',
+              borderTopRightRadius: msg.role === 'user' ? '4px' : '12px',
+              borderTopLeftRadius: msg.role === 'model' ? '4px' : '12px',
               color: 'var(--text-primary)',
-              padding: '0.75rem', borderRadius: '4px', fontSize: '1.05rem', lineHeight: 1.5,
+              fontSize: '0.9rem',
+              lineHeight: 1.5,
               maxWidth: '85%',
               whiteSpace: 'pre-wrap'
             }}>
@@ -133,7 +146,6 @@ export default function ChatAssistant() {
             </div>
           </div>
         )}
-        <div ref={chatEndRef} />
       </div>
 
       <div style={{ padding: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.05)', background: 'rgba(0, 0, 0, 0.2)' }}>
