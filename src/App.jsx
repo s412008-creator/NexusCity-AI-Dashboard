@@ -3,6 +3,9 @@ import Layout from './components/Layout';
 import IncidentManager from './components/IncidentManager';
 import NotificationModal from './components/NotificationModal';
 import { useCityData } from './hooks/useCityData';
+import CctvPanel from './components/CctvPanel';
+import AiAlertLog from './components/AiAlertLog';
+import TransitStatus from './components/TransitStatus';
 
 // 動態載入大型元件 (Code-Splitting) 以大幅提升首屏載入速度
 const TrafficChart = lazy(() => import('./components/TrafficChart'));
@@ -92,6 +95,17 @@ function App() {
               <div className="panel-content">
                 <TrafficChart />
               </div>
+            </div>
+
+            {/* 新增的三大面板 */}
+            <div className="col-span-4 animate-fade-in" style={{ animationDelay: '0.6s', height: '300px' }}>
+              <CctvPanel />
+            </div>
+            <div className="col-span-4 animate-fade-in" style={{ animationDelay: '0.7s', height: '300px' }}>
+              <AiAlertLog />
+            </div>
+            <div className="col-span-4 animate-fade-in" style={{ animationDelay: '0.8s', height: '300px' }}>
+              <TransitStatus />
             </div>
 
           </>
