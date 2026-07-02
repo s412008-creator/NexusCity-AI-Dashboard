@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   LayoutDashboard, 
   AlertTriangle, 
@@ -14,6 +14,16 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Layout({ children, headerActions, activeTab, setActiveTab }) {
   const { language, setLanguage, t } = useLanguage();
+  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+  
+  const langOptions = [
+    { code: 'zh', label: '🇹🇼 中文' },
+    { code: 'en', label: '🇺🇸 EN' },
+    { code: 'ja', label: '🇯🇵 日本語' },
+    { code: 'ko', label: '🇰🇷 한국어' }
+  ];
+  const currentLang = langOptions.find(l => l.code === language) || langOptions[0];
+
   return (
     <div className="app-container">
       {/* Sidebar */}
@@ -47,26 +57,75 @@ export default function Layout({ children, headerActions, activeTab, setActiveTa
           <div className="topbar-actions">
             {headerActions}
             
-            {/* 語系切換 */}
+            {/* 語系切換 (Custom Dropdown) */}
             <div style={{ position: 'relative' }}>
-              <select 
-                value={language} 
-                onChange={(e) => setLanguage(e.target.value)}
+              <button 
+                onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
                 style={{
-                  background: 'rgba(255,255,255,0.1)',
-                  color: 'white',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  borderRadius: '4px',
-                  padding: '4px 8px',
-                  outline: 'none',
-                  cursor: 'pointer'
+                  background: 'rgba(56, 189, 248, 0.1)',
+                  color: 'var(--text-primary)',
+                  border: '1px solid rgba(56, 189, 248, 0.3)',
+                  borderRadius: '20px',
+                  padding: '6px 12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  cursor: 'pointer',
+                  fontSize: '0.85rem',
+                  fontWeight: '500',
+                  transition: 'all 0.3s ease'
                 }}
               >
-                <option value="zh">🇹🇼 中文</option>
-                <option value="en">🇺🇸 EN</option>
-                <option value="ja">🇯🇵 日本語</option>
-                <option value="ko">🇰🇷 한국어</option>
-              </select>
+                <Globe size={16} color="var(--accent-primary)" />
+                {currentLang.label}
+              </button>
+
+              {isLangMenuOpen && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  right: 0,
+                  marginTop: '8px',
+                  background: 'rgba(17, 17, 19, 0.95)',
+                  backdropFilter: 'blur(16px)',
+                  border: '1px solid var(--panel-border)',
+                  borderRadius: '8px',
+                  padding: '4px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '2px',
+                  minWidth: '120px',
+                  zIndex: 1000,
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+                }}>
+                  {langOptions.map(option => (
+                    <div 
+                      key={option.code}
+                      onClick={() => {
+                        setLanguage(option.code);
+                        setIsLangMenuOpen(false);
+                      }}
+                      style={{
+                        padding: '8px 12px',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        fontSize: '0.85rem',
+                        color: option.code === language ? '#fff' : 'var(--text-secondary)',
+                        background: option.code === language ? 'rgba(56, 189, 248, 0.2)' : 'transparent',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        if(option.code !== language) e.target.style.background = 'rgba(255,255,255,0.05)';
+                      }}
+                      onMouseLeave={(e) => {
+                        if(option.code !== language) e.target.style.background = 'transparent';
+                      }}
+                    >
+                      {option.label}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="status-badge">
