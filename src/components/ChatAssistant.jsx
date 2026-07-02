@@ -3,7 +3,23 @@ import { Send, Bot, User, Key, Check } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import sopText from '../data/emergency_traffic_sop.txt?raw';
 
-export default function ChatAssistant() {
+// 簡單的打字機特效元件
+const Typewriter = ({ text, speed = 30 }) => {
+  const [displayed, setDisplayed] = useState('');
+  useEffect(() => {
+    let i = 0;
+    setDisplayed('');
+    const timer = setInterval(() => {
+      setDisplayed(text.substring(0, i + 1));
+      i++;
+      if (i >= text.length) clearInterval(timer);
+    }, speed);
+    return () => clearInterval(timer);
+  }, [text, speed]);
+  return <span>{displayed}</span>;
+};
+
+export default function ChatAssistant({ systemStatus }) {
   // 將金鑰打散以繞過 Github Secret Scanning 阻擋
   const apiKey = "AQ.Ab8" + "RN6JSpXpV-q" + "Oz6_oFf-" + "ufa2IV76" + "7YwHC38g" + "Rxg_JS" + "6gfjsw";
   const [messages, setMessages] = useState([
@@ -25,9 +41,7 @@ export default function ChatAssistant() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setMessages(prev => {
-        // 如果使用者已經開始聊天，就不主動插話
         if (prev.length > 1) return prev;
-        
         return [...prev, { 
           role: 'model', 
           content: '⚠️ [主動預警] 指揮官您好，我觀測到大巨蛋周邊人流已達峰值 (18,520 人)，且信義區總車流出現攀升趨勢。依據 SOP，建議提早佈署接駁專車，並準備啟動周邊號誌連鎖控制。'
@@ -36,6 +50,20 @@ export default function ChatAssistant() {
     }, 3500);
     return () => clearTimeout(timer);
   }, []);
+
+  // WOW Factor: 監聽突發事件，AI 主動強行介入 (Proactive AI Override)
+  const prevStatusRef = useRef('normal');
+  useEffect(() => {
+    if (systemStatus?.status === 'alert' && prevStatusRef.current === 'normal') {
+      const incident = systemStatus.incident;
+      setMessages(prev => [...prev, { 
+        role: 'model', 
+        isTyping: true, // 標記為需要打字特效
+        content: `🚨 [最高權限介入] 偵測到 ${incident?.location || '異常'} 發生「${incident?.type || '突發事件'}」。我已為您自動載入對應 SOP 並推算最佳替代路徑。請在左側決策面板確認是否執行應變計畫？`
+      }]);
+    }
+    prevStatusRef.current = systemStatus?.status || 'normal';
+  }, [systemStatus]);
 
   const handleSend = async () => {
     if (!input.trim() || !apiKey) return;
@@ -127,12 +155,15 @@ export default function ChatAssistant() {
               borderTopRightRadius: msg.role === 'user' ? '4px' : '12px',
               borderTopLeftRadius: msg.role === 'model' ? '4px' : '12px',
               color: 'var(--text-primary)',
-              fontSize: '0.9rem',
-              lineHeight: 1.5,
-              maxWidth: '85%',
-              whiteSpace: 'pre-wrap'
+              maxWidth: '85%'
             }}>
-              {msg.content}
+              <div style={{
+                lineHeight: '1.5',
+                fontSize: '0.95rem',
+                whiteSpace: 'pre-wrap'
+              }}>
+                {msg.isTyping ? <Typewriter text={msg.content} speed={40} /> : msg.content}
+              </div>
             </div>
           </div>
         ))}

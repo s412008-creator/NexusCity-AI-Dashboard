@@ -85,6 +85,52 @@ body::after {
   100% { transform: translate(-10vw, 20vh) scale(0.9); }
 }
 
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+@keyframes radar-ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.flowing-path {
+  animation: dash-flow 1s linear infinite;
+}
+
+.ripple-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  background-color: rgba(239, 68, 68, 0.4);
+  border: 2px solid #ef4444;
+}
+
+.ripple-marker::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  border: 2px solid #ef4444;
+  animation: radar-ripple 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
 .glass-panel:hover {
   transform: translateY(-2px);
   border-color: rgba(56, 189, 248, 0.4);

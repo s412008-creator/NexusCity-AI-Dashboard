@@ -36,6 +36,13 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  // 監聽突發事件：AI 主動強行介入
+  useEffect(() => {
+    if (systemStatus.status === 'alert') {
+      setIsChatOpen(true);
+    }
+  }, [systemStatus.status]);
+
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
@@ -210,7 +217,7 @@ function App() {
           </div>
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
             <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>載入中...</div>}>
-              <ChatAssistant />
+              <ChatAssistant systemStatus={systemStatus} />
             </Suspense>
           </div>
         </div>

@@ -53,14 +53,19 @@ export default function NetworkMap({ systemStatus }) {
           let color = "#3b82f6"; // 預設企業藍
           let weight = 4;
           let dashArray = null;
+          let className = "";
 
           if (isAlert) {
             if (road.segment_id === incidentRoad) {
               color = "#ef4444"; // 事故點：紅色
               weight = 6;
+              dashArray = "15, 15";
+              className = "flowing-path";
             } else if (alternativeRoads.includes(road.segment_id)) {
               color = "#10b981"; // 替代道路：翡翠綠
               weight = 5;
+              dashArray = "10, 10";
+              className = "flowing-path";
             } else {
               color = "#334155"; // 其他道路：暗藍灰 (Slate 700)
               weight = 3;
@@ -85,6 +90,7 @@ export default function NetworkMap({ systemStatus }) {
                   color: isHovered ? '#fff' : color, 
                   weight: isHovered ? weight + 3 : weight,
                   dashArray: dashArray,
+                  className: className,
                   lineCap: 'round',
                   lineJoin: 'round'
                 }}
