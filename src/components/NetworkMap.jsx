@@ -25,8 +25,9 @@ const ROAD_COORDINATES = {
 export default function NetworkMap({ systemStatus }) {
   const [hoveredRoad, setHoveredRoad] = useState(null);
   const isAlert = systemStatus.status === 'alert';
-  const incidentRoad = systemStatus.incident?.location_id;
-  const alternativeRoads = systemStatus.alternatives?.map(a => a.route_id) || [];
+  const incidentRoad = systemStatus.incident?.affected_segment;
+  // 直接接收 IncidentManager 傳來的字串陣列 (segment_id)
+  const alternativeRoads = systemStatus.alternatives || [];
 
   // 地圖中心點 (大巨蛋周邊)
   const mapCenter = [25.0395, 121.5560];

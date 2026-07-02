@@ -364,11 +364,12 @@
   }
 
   .chat-widget {
-    bottom: 6rem;
+    bottom: 5.5rem;
     right: 1rem;
-    left: 1rem;
-    width: auto; /* 寬度自動適應螢幕 */
-    height: 60vh; /* 高度以 viewport 比例為主 */
+    left: auto;
+    width: calc(100vw - 2rem);
+    max-width: 350px;
+    height: 60vh;
     min-height: 400px;
     max-height: calc(100vh - 8rem);
   }
