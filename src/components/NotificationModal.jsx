@@ -47,22 +47,22 @@ export default function NotificationModal({ isOpen, onClose, systemStatus }) {
             {/* 中文 */}
             <div style={{ background: 'var(--bg-color)', border: '1px solid var(--panel-border)', padding: '1rem', borderRadius: '4px' }}>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>[中文]</span>
-              <p style={{ fontSize: '0.875rem', lineHeight: 1.5, color: 'var(--text-primary)' }}>【交通快訊】{location}發生事故，該路段已封閉。請改道{alternativeStr}，預計延誤 {ete} 分鐘。請注意安全。</p>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.5, color: 'var(--text-primary)' }}>【國家級警報】{location}發生{incident.type === 'Road_Collapse_Accident' ? '路面塌陷重大事故' : incident.type === 'Crowd_Surge_Injury' ? '人群推擠' : '號誌中斷'}。該路段周邊已實施交通管制。請改道{alternativeStr}，預計延誤 {ete} 分鐘。請遵循現場員警指揮。</p>
             </div>
             {/* English */}
             <div style={{ background: 'var(--bg-color)', border: '1px solid var(--panel-border)', padding: '1rem', borderRadius: '4px' }}>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>[English]</span>
-              <p style={{ fontSize: '0.875rem', lineHeight: 1.5, color: 'var(--text-primary)' }}>[Traffic Alert] Incident at {location}. Road closed. Please detour to alternative routes. Est. delay {ete} mins. Stay safe.</p>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.5, color: 'var(--text-primary)' }}>[Emergency Alert] Critical incident at {location}. Traffic control in effect. Please detour to {alternativeStr}. Est. delay {ete} mins. Follow police instructions.</p>
             </div>
             {/* Japanese */}
             <div style={{ background: 'var(--bg-color)', border: '1px solid var(--panel-border)', padding: '1rem', borderRadius: '4px' }}>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>[日本語]</span>
-              <p style={{ fontSize: '0.875rem', lineHeight: 1.5, color: 'var(--text-primary)' }}>【交通情報】{location}で事故が発生し、通行止めです。迂回してください。約{ete}分の遅れが見込まれます。</p>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.5, color: 'var(--text-primary)' }}>【緊急速報】{location}で重大な事態が発生しました。交通規制が行われています。{alternativeStr}へ迂回してください。約{ete}分の遅れが見込まれます。</p>
             </div>
             {/* Korean */}
             <div style={{ background: 'var(--bg-color)', border: '1px solid var(--panel-border)', padding: '1rem', borderRadius: '4px' }}>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', display: 'block' }}>[한국어]</span>
-              <p style={{ fontSize: '0.875rem', lineHeight: 1.5, color: 'var(--text-primary)' }}>【교통 알림】 {location}에서 사고가 발생하여 도로가 통제되었습니다. 우회해주시기 바랍니다. 약 {ete}분 지연이 예상됩니다.</p>
+              <p style={{ fontSize: '0.875rem', lineHeight: 1.5, color: 'var(--text-primary)' }}>【긴급 경보】 {location}에서 심각한 상황이 발생하여 교통이 통제되고 있습니다. {alternativeStr}(으)로 우회해 주십시오. 약 {ete}분 지연이 예상됩니다.</p>
             </div>
           </div>
         </div>

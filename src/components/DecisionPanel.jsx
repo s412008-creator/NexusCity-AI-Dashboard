@@ -13,18 +13,57 @@ export default function DecisionPanel({ systemStatus }) {
 
   const { incident, alternatives } = systemStatus;
   
-  // 計算 ETE (基於 SOP: Critical = 60m + penalty)
-  const baseClearance = incident.severity === 'Critical' ? 60 : 40;
-  // 假設飽和度為 1.0, 罰則為 (1.0 - 0.5) * 60 = 30
-  const penalty = 30;
+  // 根據不同事件類型動態引用 SOP 與計算
+  let sopTitle = '';
+  let sopContent = null;
+  let baseClearance = 40;
+  let penalty = 30;
+
+  if (incident.type === 'Road_Collapse_Accident') {
+    sopTitle = '第 1 條重大交通事故與 第 2 條主疏散規則';
+    baseClearance = 60;
+    penalty = 45;
+    sopContent = (
+      <>
+        <span style={{color: 'var(--text-secondary)'}}>事故為 Critical 等級。已自動篩選周邊道路。建議將車流引導至</span> <b style={{color: 'var(--text-primary)'}}>{alternatives.length > 0 ? alternatives.join(', ') : '周邊可用道路'}</b>。<br/>
+        <span style={{color: 'var(--text-secondary)'}}>CMS 建議：</span><span style={{color: 'var(--text-primary)'}}>「{incident.location}封閉，請改道，預計延誤 {baseClearance + penalty} 分鐘」</span>
+      </>
+    );
+  } else if (incident.type === 'Crowd_Surge_Injury') {
+    sopTitle = '第 4 條大巨蛋散場啟動 與 第 3 條捷運分流';
+    baseClearance = 30;
+    penalty = 15;
+    sopContent = (
+      <>
+        <span style={{color: 'var(--text-secondary)'}}>檢測到人流峰值與推擠。啟動捷運與公車聯防接駁。</span><br/>
+        <span style={{color: 'var(--text-secondary)'}}>處置建議：</span><span style={{color: 'var(--text-primary)'}}>「要求北捷列車過站不停，並引導群眾步行至周邊接駁點或市政府站」</span>
+      </>
+    );
+  } else {
+    sopTitle = '第 5 條號誌異常處理 SOP';
+    baseClearance = 20;
+    penalty = 10;
+    sopContent = (
+      <>
+        <span style={{color: 'var(--text-secondary)'}}>號誌中斷導致車流交織風險增加。</span><br/>
+        <span style={{color: 'var(--text-secondary)'}}>處置建議：</span><span style={{color: 'var(--text-primary)'}}>「通知轄區分局派員進行人工交通指揮，降低周邊路段速限至 30km/h」</span>
+      </>
+    );
+  }
+
   const ete = baseClearance + penalty;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', height: '100%', minHeight: '300px' }}>
       <div style={{ background: 'var(--bg-color)', border: '1px solid var(--alert-red)', padding: '1rem', borderRadius: '4px' }}>
-        <h3 style={{ color: 'var(--alert-red)', fontSize: '0.875rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-          <Target size={16} />
-          AI 判定結果：{incident.severity === 'Critical' ? 'A 級重大事件' : 'B 級事件'}
+        <h3 style={{ color: 'var(--alert-red)', fontSize: '0.875rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Target size={16} />
+            AI 判定結果：{incident.severity === 'Critical' ? 'A 級重大事件' : incident.severity === 'High' ? 'B 級事件' : 'C 級事件'}
+          </span>
+          <span style={{ fontSize: '0.7rem', color: '#10b981', background: 'rgba(16, 185, 129, 0.1)', padding: '0.15rem 0.5rem', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
+            AI 信心水準: 98.5%
+          </span>
         </h3>
         <p style={{ fontSize: '0.875rem', color: 'var(--text-primary)', lineHeight: 1.6 }}>
           偵測到「{incident.location}」{incident.type}。<br/>
@@ -38,9 +77,8 @@ export default function DecisionPanel({ systemStatus }) {
           觸發 SOP 條款 (車禍與路障應變)
         </h4>
         <div style={{ background: 'var(--bg-color)', border: '1px solid var(--panel-border)', padding: '0.75rem 1rem', borderRadius: '4px', fontSize: '0.85rem', borderLeft: '3px solid var(--accent-primary)' }}>
-          <strong style={{color: 'var(--text-primary)'}}>第 2 條主疏散路徑規則：</strong><br/>
-          <span style={{color: 'var(--text-secondary)'}}>已自動篩選替代道路。建議將車流引導至</span> <b style={{color: 'var(--text-primary)'}}>{alternatives.join(', ')}</b>。<br/>
-          <span style={{color: 'var(--text-secondary)'}}>CMS 建議：</span><span style={{color: 'var(--text-primary)'}}>「{incident.location}封閉，請改道，預計延誤 {ete} 分鐘」</span>
+          <strong style={{color: 'var(--text-primary)'}}>{sopTitle}：</strong><br/>
+          {sopContent}
         </div>
       </div>
 

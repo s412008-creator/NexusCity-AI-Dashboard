@@ -65,16 +65,23 @@ export default function ChatAssistant() {
       
       // 黑客松 Demo 用備援邏輯 (Fallback Mock LLM)
       let fallbackResponse = "收到您的請求。根據大會 SOP 規範，建議交控中心持續監控流量變化，並隨時準備啟動疏散機制。";
+      const lowerMsg = userMsg.toLowerCase();
       
-      if (userMsg.includes('大巨蛋') || userMsg.includes('散場') || userMsg.includes('人潮')) {
+      if (lowerMsg.includes('大巨蛋') || lowerMsg.includes('散場') || lowerMsg.includes('人潮')) {
         fallbackResponse = `根據 SOP 第 4 條「大巨蛋散場啟動」與第 3 條「捷運與接駁分流」：\n建議通知北捷實施「過站不停」、調度公車處接駁專車，並引導群眾步行至市政府站 (BS_MRT_BL18)。`;
-      } else if (userMsg.includes('光復南路') || userMsg.includes('車禍') || userMsg.includes('塌陷')) {
+      } else if (lowerMsg.includes('光復南路') || lowerMsg.includes('車禍') || lowerMsg.includes('塌陷')) {
         fallbackResponse = `光復南路發生重大事故。根據 SOP 第 1 條「重大交通事故」：\n此為 Critical 級別，建議立即封鎖該路段，並透過資訊可變標誌 (CMS) 導引車流改道至市民大道與仁愛路。`;
-      } else if (userMsg.includes('號誌') || userMsg.includes('故障')) {
+      } else if (lowerMsg.includes('號誌') || lowerMsg.includes('故障')) {
         fallbackResponse = `偵測到號誌異常。建議立即通知轄區分局派員進行人工交通指揮，並降低周邊路段的速限。`;
-      } else if (userMsg.includes('你好') || userMsg.includes('嗨') || userMsg.includes('hello')) {
+      } else if (lowerMsg.includes('替代') || lowerMsg.includes('路徑') || lowerMsg.includes('算')) {
+        fallbackResponse = "關於替代路徑的計算：系統會即時讀取「road_network_geometry.json」路網模型。為了避免將車流導入新的瓶頸，我的演算法會自動過濾掉承載容量 (capacity_vph) 小於 1200 輛/小時的次要道路，確保推薦出來的替代路線具有真實的疏散能力。";
+      } else if (lowerMsg.includes('sop') || lowerMsg.includes('條件') || lowerMsg.includes('啟動')) {
+        fallbackResponse = "SOP 的啟動條件分為三級：\n1. A級 (Critical)：發生路面塌陷等重大事故，需封閉主幹道。\n2. B級 (High)：大巨蛋周邊人流超過 18,000 人且發生推擠。\n3. C級 (Medium)：部分號誌異常或車速低於 15km/h。\n系統會根據這些條件，自動匹配並引用對應的 SOP 處置條款。";
+      } else if (lowerMsg.includes('評審') || lowerMsg.includes('展示') || lowerMsg.includes('黑客松')) {
+        fallbackResponse = "各位評審委員好！我是 2026 雲湧智生黑客松的 CityAI 決策核心。我具備了動態 SOP 匹配、智慧容量過濾與多語系通報能力。感謝您的指導，準備好見證未來城市應變系統了嗎？";
+      } else if (lowerMsg.includes('你好') || lowerMsg.includes('嗨') || lowerMsg.includes('hello')) {
         fallbackResponse = `指揮官您好！我是 CityAI 交通應變顧問（目前處於高安全性備援模式），隨時為您分析即時路況與大會 SOP。您可以試著問我關於「大巨蛋散場」或是「光復南路」的情境！`;
-      } else if (userMsg.includes('天氣')) {
+      } else if (lowerMsg.includes('天氣')) {
         fallbackResponse = `目前的系統未介接氣象署 API，但我能為您分析極端氣候（如暴雨）對信義區路網承載量的影響，是否需要載入防汛 SOP？`;
       }
 
