@@ -31,7 +31,7 @@ export default function ChatAssistant() {
     try {
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ 
-        model: "gemini-1.5-flash",
+        model: "gemini-1.5-flash-latest",
         systemInstruction: `你是一位專業的「智慧城市交控中心 AI 應變顧問」。請嚴格根據以下的「交通應變標準程序 (SOP)」來回答指揮官的問題，不可自行虛構或給出違反 SOP 的處置建議。\n\nSOP 內容：\n${sopText}`
       });
 
@@ -90,7 +90,7 @@ export default function ChatAssistant() {
               background: msg.role === 'user' ? 'transparent' : 'var(--panel-border)',
               border: msg.role === 'user' ? '1px solid var(--panel-border)' : '1px solid transparent',
               color: 'var(--text-primary)',
-              padding: '0.75rem', borderRadius: '4px', fontSize: '0.85rem', lineHeight: 1.5,
+              padding: '0.75rem', borderRadius: '4px', fontSize: '1.05rem', lineHeight: 1.5,
               maxWidth: '85%',
               whiteSpace: 'pre-wrap'
             }}>
