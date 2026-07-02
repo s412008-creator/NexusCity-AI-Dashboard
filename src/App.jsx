@@ -14,6 +14,7 @@ const DecisionPanel = lazy(() => import('./components/DecisionPanel'));
 const NetworkMap = lazy(() => import('./components/NetworkMap'));
 import { Users, Car, AlertTriangle, ShieldCheck, MessageCircle, X } from 'lucide-react';
 import './App.css';
+import { useLanguage } from './contexts/LanguageContext';
 
 function App() {
   const [systemStatus, setSystemStatus] = useState({
@@ -25,6 +26,7 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const isNormal = systemStatus.status === 'normal';
+  const { t } = useLanguage();
 
   const cityData = useCityData();
 
@@ -96,7 +98,7 @@ function App() {
             {/* Chart Section (滿版) */}
             <div className="col-span-12 glass-panel animate-fade-in" style={{ animationDelay: '0.5s' }}>
               <div className="panel-header">
-                <h2 className="panel-title">動態時序車人流監測 (Live Time-Series)</h2>
+                <h2 className="panel-title">{t('dashboard_traffic')}</h2>
                 <div className="status-badge"><span className="status-dot"></span>Live</div>
               </div>
               <div className="panel-content">

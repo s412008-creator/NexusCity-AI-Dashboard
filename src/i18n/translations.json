@@ -1,0 +1,54 @@
+{
+  "zh": {
+    "app_title": "交控中心戰情室 (Command Center)",
+    "menu_dashboard": "時序監測儀表板",
+    "menu_incident": "事件注入管理",
+    "menu_settings": "系統設定",
+    "btn_recover": "恢復正常",
+    "btn_notify": "發送通報",
+    "status_monitoring": "SOP 系統監控中",
+    "dashboard_traffic": "動態時序車人流監測",
+    "dashboard_cctv": "關鍵路口即時影像",
+    "dashboard_ai_log": "AI 預警與決策日誌",
+    "dashboard_transit": "公共運輸與基礎設施"
+  },
+  "en": {
+    "app_title": "Command Center Ops",
+    "menu_dashboard": "Time-Series Dashboard",
+    "menu_incident": "Incident Simulation",
+    "menu_settings": "System Settings",
+    "btn_recover": "Recover",
+    "btn_notify": "Send Alert",
+    "status_monitoring": "SOP Monitoring",
+    "dashboard_traffic": "Live Traffic & Crowd Monitor",
+    "dashboard_cctv": "Live CCTV Feeds",
+    "dashboard_ai_log": "AI Alert & Decision Log",
+    "dashboard_transit": "Transit & Infrastructure"
+  },
+  "ja": {
+    "app_title": "交通管制センター",
+    "menu_dashboard": "ダッシュボード",
+    "menu_incident": "インシデント管理",
+    "menu_settings": "システム設定",
+    "btn_recover": "正常化",
+    "btn_notify": "通報送信",
+    "status_monitoring": "SOP 監視中",
+    "dashboard_traffic": "動的交通・人流監視",
+    "dashboard_cctv": "主要交差点ライブカメラ",
+    "dashboard_ai_log": "AI 警告・意思決定ログ",
+    "dashboard_transit": "公共交通機関とインフラ"
+  },
+  "ko": {
+    "app_title": "교통 관제 센터",
+    "menu_dashboard": "대시보드",
+    "menu_incident": "사고 시뮬레이션",
+    "menu_settings": "시스템 설정",
+    "btn_recover": "정상화",
+    "btn_notify": "경고 발송",
+    "status_monitoring": "SOP 모니터링",
+    "dashboard_traffic": "실시간 교통 및 인파 모니터링",
+    "dashboard_cctv": "주요 교차로 CCTV",
+    "dashboard_ai_log": "AI 경고 및 의사결정 로그",
+    "dashboard_transit": "대중교통 및 인프라"
+  }
+}

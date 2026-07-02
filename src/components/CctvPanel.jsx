@@ -1,5 +1,6 @@
 import React from 'react';
 import { Camera, Radio } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const CCTV_FEEDS = [
   { id: 1, location: '光復南路 / 忠孝東路口', status: 'LIVE', active: true },
@@ -9,12 +10,13 @@ const CCTV_FEEDS = [
 ];
 
 export default function CctvPanel() {
+  const { t } = useLanguage();
   return (
     <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div className="panel-header" style={{ padding: '1.25rem' }}>
         <h2 className="panel-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
           <Camera size={18} color="var(--accent-primary)" />
-          關鍵路口即時影像
+          {t('dashboard_cctv')}
         </h2>
         <div className="status-badge"><span className="status-dot"></span>網狀監控網</div>
       </div>

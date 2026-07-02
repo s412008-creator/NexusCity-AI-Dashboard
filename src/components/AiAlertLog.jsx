@@ -1,5 +1,6 @@
 import React from 'react';
 import { Activity, Clock, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const AI_LOGS = [
   { id: 1, time: 'Just now', type: 'info', msg: '系統自動校準模型預測權重，已納入最新天氣因子 (降雨機率 40%)' },
@@ -9,12 +10,13 @@ const AI_LOGS = [
 ];
 
 export default function AiAlertLog() {
+  const { t } = useLanguage();
   return (
     <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div className="panel-header" style={{ padding: '1.25rem' }}>
         <h2 className="panel-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
           <Activity size={18} color="var(--accent-primary)" />
-          AI 預警與決策日誌
+          {t('dashboard_ai_log')}
         </h2>
       </div>
       

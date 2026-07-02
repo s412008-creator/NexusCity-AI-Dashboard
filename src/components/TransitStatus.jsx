@@ -1,13 +1,15 @@
 import React from 'react';
 import { Train, Bus, ParkingSquare } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function TransitStatus() {
+  const { t } = useLanguage();
   return (
     <div className="glass-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div className="panel-header" style={{ padding: '1.25rem' }}>
         <h2 className="panel-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
           <Train size={18} color="var(--accent-primary)" />
-          公共運輸與基礎設施
+          {t('dashboard_transit')}
         </h2>
       </div>
       
