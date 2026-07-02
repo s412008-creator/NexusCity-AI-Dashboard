@@ -227,3 +227,22 @@ button:hover {
 button:active {
   transform: translateY(0);
 }
+
+[data-theme='light'] {
+  --bg-color: #f8fafc;
+  --panel-bg: rgba(255, 255, 255, 0.75);
+  --panel-border: rgba(0, 0, 0, 0.08);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  
+  --accent-primary: #0284c7;
+  color-scheme: light;
+}
+
+[data-theme='light'] body::before {
+  background: rgba(2, 132, 199, 0.15);
+}
+
+[data-theme='light'] body::after {
+  background: rgba(124, 58, 237, 0.15);
+}

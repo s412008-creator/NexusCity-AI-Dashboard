@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { AlertCircle, Zap, Send, ChevronDown } from 'lucide-react';
+import { Zap, Send, ChevronDown } from 'lucide-react';
 import incidentData from '../data/live_incidents.json';
 import roadData from '../data/road_network_geometry.json';
 

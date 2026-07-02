@@ -19,4 +19,5 @@ export const LanguageProvider = ({ children }) => {
 };
 
 // Custom hook 以方便元件呼叫
+// eslint-disable-next-line
 export const useLanguage = () => useContext(LanguageContext);

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import roadNetworkData from '../data/road_network_geometry.json';
 import { MapContainer, TileLayer, Polyline, Tooltip, CircleMarker } from 'react-leaflet';
-import L from 'leaflet';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 // 台北市信義區各主要路段的真實經緯度近似陣列 (Lat, Lng)
 const ROAD_COORDINATES = {
@@ -25,6 +25,7 @@ const ROAD_COORDINATES = {
 
 export default function NetworkMap({ systemStatus }) {
   const { t } = useLanguage();
+  const { theme } = useTheme();
   const [hoveredRoad, setHoveredRoad] = useState(null);
   const isAlert = systemStatus.status === 'alert';
   const incidentRoad = systemStatus.incident?.affected_segment || systemStatus.incident?.affected_road;
@@ -42,9 +43,10 @@ export default function NetworkMap({ systemStatus }) {
         style={{ width: '100%', height: '100%' }}
         zoomControl={false}
       >
-        {/* 使用 CartoDB Dark Matter 深色極簡圖磚，融入戰情室黑灰風格 */}
+        {/* 使用 CartoDB 深色/淺色極簡圖磚 */}
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          key={theme}
+          url={`https://{s}.basemaps.cartocdn.com/${theme === 'dark' ? 'dark_all' : 'light_all'}/{z}/{x}/{y}{r}.png`}
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
         />
 
@@ -89,7 +91,7 @@ export default function NetworkMap({ systemStatus }) {
               <Polyline 
                 positions={coords} 
                 pathOptions={{ 
-                  color: isHovered ? '#fff' : color, 
+                  color: isHovered ? (theme === 'dark' ? '#fff' : '#000') : color, 
                   weight: isHovered ? weight + 3 : weight,
                   dashArray: dashArray,
                   className: className,
@@ -105,7 +107,8 @@ export default function NetworkMap({ systemStatus }) {
                 <Tooltip sticky className="glass-tooltip">
                   <div style={{ fontWeight: '600', marginBottom: '2px', color: 
                     (isAlert && road.segment_id === incidentRoad) ? '#ef4444' : 
-                    (isAlert && alternativeRoads.includes(road.segment_id)) ? '#10b981' : '#fff'
+                    (isAlert && alternativeRoads.includes(road.segment_id)) ? '#10b981' : 
+                    (theme === 'dark' ? '#fff' : '#000')
                   }}>
                     {road.name}
                   </div>

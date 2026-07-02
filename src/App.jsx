@@ -15,6 +15,7 @@ const NetworkMap = lazy(() => import('./components/NetworkMap'));
 import { Users, Car, AlertTriangle, ShieldCheck, MessageCircle, X } from 'lucide-react';
 import './App.css';
 import { useLanguage } from './contexts/LanguageContext';
+import { useTheme } from './contexts/ThemeContext';
 
 function App() {
   const [systemStatus, setSystemStatus] = useState({
@@ -27,6 +28,7 @@ function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const isNormal = systemStatus.status === 'normal';
   const { t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
 
   const cityData = useCityData();
 
@@ -146,28 +148,50 @@ function App() {
       case 'settings':
         return (
           <div className="col-span-12 glass-panel animate-fade-in" style={{ padding: '2rem' }}>
-            <h2 style={{ fontSize: '1.25rem', marginBottom: '2rem', color: 'var(--text-primary)' }}>系統設定 (System Settings)</h2>
+            <h2 style={{ fontSize: '1.25rem', marginBottom: '2rem', color: 'var(--text-primary)' }}>{t('settings_title')}</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '600px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', padding: '1.5rem', border: '1px solid var(--panel-border)', borderRadius: '4px', background: 'var(--bg-color)' }}>
                 <div>
-                  <div style={{ fontWeight: 500, marginBottom: '0.25rem', color: 'var(--text-primary)' }}>AI 疏散決策敏感度</div>
-                  <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>調整觸發 SOP 事件之數據門檻 (目前設定：高)</div>
+                  <div style={{ fontWeight: 500, marginBottom: '0.25rem', color: 'var(--text-primary)' }}>{t('setting_ai_sensitivity_title')}</div>
+                  <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('setting_ai_sensitivity_desc')}</div>
                 </div>
-                <div style={{ color: 'var(--accent-primary)', fontWeight: 600 }}>高 (High)</div>
+                <div style={{ color: 'var(--accent-primary)', fontWeight: 600 }}>{t('setting_high')}</div>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', padding: '1.5rem', border: '1px solid var(--panel-border)', borderRadius: '4px', background: 'var(--bg-color)' }}>
                 <div>
-                  <div style={{ fontWeight: 500, marginBottom: '0.25rem', color: 'var(--text-primary)' }}>多語化通報模組</div>
-                  <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>自動偵測漫遊比率並翻譯告警內容至細胞廣播</div>
+                  <div style={{ fontWeight: 500, marginBottom: '0.25rem', color: 'var(--text-primary)' }}>{t('setting_i18n_module_title')}</div>
+                  <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('setting_i18n_module_desc')}</div>
                 </div>
-                <div style={{ color: '#10b981', fontWeight: 600 }}>已啟用 (Active)</div>
+                <div style={{ color: '#10b981', fontWeight: 600 }}>{t('setting_active')}</div>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', padding: '1.5rem', border: '1px solid var(--panel-border)', borderRadius: '4px', background: 'var(--bg-color)' }}>
                 <div>
-                  <div style={{ fontWeight: 500, marginBottom: '0.25rem', color: 'var(--text-primary)' }}>中華電信大數據 API</div>
-                  <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>即時車流與信令資料源狀態</div>
+                  <div style={{ fontWeight: 500, marginBottom: '0.25rem', color: 'var(--text-primary)' }}>{t('setting_cht_api_title')}</div>
+                  <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('setting_cht_api_desc')}</div>
                 </div>
-                <div style={{ color: '#10b981', fontWeight: 600 }}>連線正常 (Connected)</div>
+                <div style={{ color: '#10b981', fontWeight: 600 }}>{t('setting_connected')}</div>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '1.5rem', border: '1px solid var(--panel-border)', borderRadius: '4px', background: 'var(--bg-color)' }}>
+                <div>
+                  <div style={{ fontWeight: 500, marginBottom: '0.25rem', color: 'var(--text-primary)' }}>介面主題模式 (Theme Mode)</div>
+                  <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>切換白天與黑夜模式以適應當前環境</div>
+                </div>
+                <div>
+                  <button 
+                    onClick={toggleTheme}
+                    style={{ 
+                      padding: '0.5rem 1rem', 
+                      background: 'var(--accent-primary)', 
+                      color: '#fff', 
+                      border: 'none', 
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                      fontWeight: 600
+                    }}
+                  >
+                    {theme === 'dark' ? '切換為白天模式 ☀️' : '切換為黑夜模式 🌙'}
+                  </button>
+                </div>
               </div>
             </div>
           </div>

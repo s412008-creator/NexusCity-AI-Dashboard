@@ -1,15 +1,15 @@
 import React from 'react';
-import { Activity, Clock, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { Activity, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function AiAlertLog() {
   const { t } = useLanguage();
 
   const AI_LOGS = [
-    { id: 1, time: 'Just now', type: 'info', msg: t('ai_log_1') },
-    { id: 2, time: '2 mins ago', type: 'warning', msg: t('ai_log_2') },
-    { id: 3, time: '15 mins ago', type: 'action', msg: t('ai_log_3') },
-    { id: 4, time: '1 hour ago', type: 'info', msg: t('ai_log_4') },
+    { id: 1, time: t('time_just_now'), type: 'info', msg: t('ai_log_1') },
+    { id: 2, time: t('time_2_mins_ago'), type: 'warning', msg: t('ai_log_2') },
+    { id: 3, time: t('time_15_mins_ago'), type: 'action', msg: t('ai_log_3') },
+    { id: 4, time: t('time_1_hour_ago'), type: 'info', msg: t('ai_log_4') },
   ];
 
   return (

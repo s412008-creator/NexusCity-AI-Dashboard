@@ -98,7 +98,20 @@
     "chat_proactive_warning": "⚠️ [主動預警] 指揮官您好，我觀測到大巨蛋周邊人流已達峰值 (18,520 人)，且信義區總車流出現攀升趨勢。依據 SOP，建議提早佈署接駁專車，並準備啟動周邊號誌連鎖控制。",
     "chat_placeholder": "請輸入狀況，例如：大巨蛋散場遇到雨天...",
     "chat_thinking": "思考中... (Gemini Inference)",
-    "chat_alert_override": "🚨 [最高權限介入] 偵測到 {location} 發生「{type}」。我已為您自動載入對應 SOP 並推算最佳替代路徑。請在左側決策面板確認是否執行應變計畫？"
+    "chat_alert_override": "🚨 [最高權限介入] 偵測到 {location} 發生「{type}」。我已為您自動載入對應 SOP 並推算最佳替代路徑。請在左側決策面板確認是否執行應變計畫？",
+    "time_just_now": "剛剛",
+    "time_2_mins_ago": "2 分鐘前",
+    "time_15_mins_ago": "15 分鐘前",
+    "time_1_hour_ago": "1 小時前",
+    "chat_fallback_default": "收到您的請求。根據大會 SOP 規範，建議交控中心持續監控流量變化，並隨時準備啟動疏散機制。",
+    "chat_fallback_dome": "根據 SOP 第 4 條「大巨蛋散場啟動」與第 3 條「捷運與接駁分流」：\n建議通知北捷實施「過站不停」、調度公車處接駁專車，並引導群眾步行至市政府站 (BS_MRT_BL18)。",
+    "chat_fallback_accident": "光復南路發生重大事故。根據 SOP 第 1 條「重大交通事故」：\n此為 Critical 級別，建議立即封鎖該路段，並透過資訊可變標誌 (CMS) 導引車流改道至市民大道與仁愛路。",
+    "chat_fallback_signal": "偵測到號誌異常。建議立即通知轄區分局派員進行人工交通指揮，並降低周邊路段的速限。",
+    "chat_fallback_route": "關於替代路徑的計算：系統會即時讀取「road_network_geometry.json」路網模型。為了避免將車流導入新的瓶頸，我的演算法會自動過濾掉承載容量 (capacity_vph) 小於 1200 輛/小時的次要道路，確保推薦出來的替代路線具有真實的疏散能力。",
+    "chat_fallback_sop": "SOP 的啟動條件分為三級：\n1. A級 (Critical)：發生路面塌陷等重大事故，需封閉主幹道。\n2. B級 (High)：大巨蛋周邊人流超過 18,000 人且發生推擠。\n3. C級 (Medium)：部分號誌異常或車速低於 15km/h。\n系統會根據這些條件，自動匹配並引用對應的 SOP 處置條款。",
+    "chat_fallback_jury": "各位評審委員好！我是 2026 雲湧智生黑客松的 CityAI 決策核心。我具備了動態 SOP 匹配、智慧容量過濾與多語系通報能力。感謝您的指導，準備好見證未來城市應變系統了嗎？",
+    "chat_fallback_greeting": "指揮官您好！我是 CityAI 交通應變顧問（目前處於高安全性備援模式），隨時為您分析即時路況與大會 SOP。您可以試著問我關於「大巨蛋散場」或是「光復南路」的情境！",
+    "chat_fallback_weather": "目前的系統未介接氣象署 API，但我能為您分析極端氣候（如暴雨）對信義區路網承載量的影響，是否需要載入防汛 SOP？"
   },
   "en": {
     "app_title": "Command Center Ops",
@@ -199,7 +212,20 @@
     "chat_proactive_warning": "⚠️ [Proactive Warning] Commander, Dome crowd has reached peak (18,520) and Xinyi traffic is rising. Per SOP, recommend deploying shuttle buses early and preparing signal chain control.",
     "chat_placeholder": "Enter scenario, e.g., Dome exiting in rain...",
     "chat_thinking": "Thinking... (Gemini Inference)",
-    "chat_alert_override": "🚨 [Override] Detected {type} at {location}. I have auto-loaded the SOP and calculated optimal alternatives. Please confirm execution in the Decision Panel."
+    "chat_alert_override": "🚨 [Override] Detected {type} at {location}. I have auto-loaded the SOP and calculated optimal alternatives. Please confirm execution in the Decision Panel.",
+    "time_just_now": "Just now",
+    "time_2_mins_ago": "2 mins ago",
+    "time_15_mins_ago": "15 mins ago",
+    "time_1_hour_ago": "1 hour ago",
+    "chat_fallback_default": "Request received. According to SOP, recommend continuous traffic monitoring and preparing evacuation protocols.",
+    "chat_fallback_dome": "Per SOP Art. 4 (Dome Exit) & Art. 3 (MRT Diversion):\nRecommend TRTC trains skip station, dispatch shuttle buses, and guide crowds to walk to City Hall Station (BS_MRT_BL18).",
+    "chat_fallback_accident": "Major accident on Guangfu S. Rd. Per SOP Art. 1:\nCritical level. Recommend immediate roadblock and using CMS to detour traffic to Civic Blvd and Ren'ai Rd.",
+    "chat_fallback_signal": "Signal anomaly detected. Recommend dispatching police for manual traffic control and reducing speed limits.",
+    "chat_fallback_route": "Regarding alternative routes: The system dynamically reads the road network model. To prevent new bottlenecks, it filters out secondary roads with capacity < 1200 vph, ensuring realistic evacuation capability.",
+    "chat_fallback_sop": "SOP triggers have 3 levels:\n1. Class A (Critical): Major road collapse, requires main road closure.\n2. Class B (High): Dome crowd > 18k with pushing.\n3. Class C (Medium): Signal issues or speed < 15km/h.\nSystem auto-matches these conditions to execute SOPs.",
+    "chat_fallback_jury": "Hello Honorable Judges! I am the CityAI core for the 2026 Hackathon. I feature dynamic SOP matching, smart capacity filtering, and multi-lingual broadcasting. Thank you for your guidance. Ready to witness the future of city emergency response?",
+    "chat_fallback_greeting": "Hello Commander! I'm CityAI Traffic Consultant (Fallback Mode), ready to analyze real-time traffic and SOPs. Try asking me about 'Dome Exit' or 'Guangfu S. Rd'!",
+    "chat_fallback_weather": "Current system lacks Weather API, but I can analyze extreme weather impacts on Xinyi's network capacity. Shall I load the flood prevention SOP?"
   },
   "ja": {
     "app_title": "交通管制センター",
@@ -300,7 +326,20 @@
     "chat_proactive_warning": "⚠️ [事前警告] 司令官、ドームの人出がピーク(18,520人)に達し、信義区の交通量が増加しています。SOPに従い、シャトルバスの早期手配と連動信号の準備を推奨します。",
     "chat_placeholder": "シナリオを入力（例：雨天時のドーム退場...）",
     "chat_thinking": "思考中... (Gemini Inference)",
-    "chat_alert_override": "🚨 [最高権限介入] {location} で {type} を検知しました。対応する SOP を自動ロードし、最適な迂回ルートを算出しました。左側のパネルで実行を確認してください。"
+    "chat_alert_override": "🚨 [最高権限介入] {location} で {type} を検知しました。対応する SOP を自動ロードし、最適な迂回ルートを算出しました。左側のパネルで実行を確認してください。",
+    "time_just_now": "たった今",
+    "time_2_mins_ago": "2分前",
+    "time_15_mins_ago": "15分前",
+    "time_1_hour_ago": "1時間前",
+    "chat_fallback_default": "リクエストを受信しました。大会SOPに基づき、交通量の監視継続と避難プロトコルの準備を推奨します。",
+    "chat_fallback_dome": "SOP第4条（ドーム退場）および第3条（MRT分散）に基づき：\n台北MRTの駅通過、シャトルバスの配備、市政府駅への徒歩誘導を推奨します。",
+    "chat_fallback_accident": "光復南路で重大な事故が発生。SOP第1条に基づき：\nクリティカルレベル。即時封鎖し、CMSを通じて市民大道と仁愛路への迂回を推奨します。",
+    "chat_fallback_signal": "信号異常を検知。警察による手動での交通整理と制限速度の引き下げを推奨します。",
+    "chat_fallback_route": "迂回ルートの計算について：システムは動的に道路網モデルを読み込みます。新たな渋滞を防ぐため、容量が1200台/時未満の副次道路を除外し、現実的な避難能力を確保します。",
+    "chat_fallback_sop": "SOPのトリガーは3段階です：\n1. A級（Critical）：道路陥没などの重大事故。幹線道路の封鎖が必要。\n2. B級（High）：ドームの人出が1.8万人を超え、押し合いが発生。\n3. C級（Medium）：信号異常または時速15km未満。\nシステムはこれらの条件を自動的に照合し、SOPを実行します。",
+    "chat_fallback_jury": "審査員の皆様、こんにちは！私は2026年ハッカソンのCityAIコアです。動的SOP照合、スマート容量フィルタリング、多言語放送機能を備えています。ご指導ありがとうございます。未来の都市対応システムを見る準備はできましたか？",
+    "chat_fallback_greeting": "司令官、こんにちは！私はCityAI交通コンサルタント（フォールバックモード）です。リアルタイムの交通状況とSOPを分析します。「ドーム退場」や「光復南路」について質問してみてください！",
+    "chat_fallback_weather": "現在気象庁APIとは接続していませんが、異常気象が信義区の交通網容量に与える影響を分析できます。水害対策SOPをロードしますか？"
   },
   "ko": {
     "app_title": "교통 관제 센터",
@@ -401,6 +440,19 @@
     "chat_proactive_warning": "⚠️ [사전 경고] 지휘관님, 돔 인파가 최고조(18,520명)에 달하고 신이구 교통량이 증가하고 있습니다. SOP에 따라 셔틀버스를 조기 배치하고 연동 신호를 준비할 것을 권장합니다.",
     "chat_placeholder": "상황 입력 (예: 우천 시 돔 퇴장...)",
     "chat_thinking": "생각 중... (Gemini Inference)",
-    "chat_alert_override": "🚨 [최고 권한 개입] {location}에서 {type} 감지됨. 해당하는 SOP를 자동 로드하고 최적의 우회 경로를 계산했습니다. 의사결정 패널에서 실행을 확인하십시오."
+    "chat_alert_override": "🚨 [최고 권한 개입] {location}에서 {type} 감지됨. 해당하는 SOP를 자동 로드하고 최적의 우회 경로를 계산했습니다. 의사결정 패널에서 실행을 확인하십시오.",
+    "time_just_now": "방금 전",
+    "time_2_mins_ago": "2분 전",
+    "time_15_mins_ago": "15분 전",
+    "time_1_hour_ago": "1시간 전",
+    "chat_fallback_default": "요청을 접수했습니다. 대회 SOP에 따라 지속적인 교통량 모니터링 및 대피 프로토콜 준비를 권장합니다.",
+    "chat_fallback_dome": "SOP 제4조(돔 퇴장) 및 제3조(MRT 분산)에 따라:\n타이베이 MRT 무정차 통과, 셔틀버스 배치, 시청역으로 도보 이동 유도를 권장합니다.",
+    "chat_fallback_accident": "광푸남로에서 중대한 사고 발생. SOP 제1조에 따라:\nCritical 등급. 즉각적인 도로 통제 및 CMS를 통한 시민대로 및 런아이로 우회를 권장합니다.",
+    "chat_fallback_signal": "신호 이상 감지. 경찰의 수동 교통 정리 및 제한 속도 하향 조정을 권장합니다.",
+    "chat_fallback_route": "우회 경로 계산 관련: 시스템이 동적으로 도로망 모델을 읽어옵니다. 새로운 병목 현상을 방지하기 위해 용량이 1200대/시 미만인 2차 도로를 필터링하여 현실적인 대피 능력을 확보합니다.",
+    "chat_fallback_sop": "SOP 발동 조건은 3단계입니다:\n1. A급(Critical): 도로 함몰 등 중대 사고. 주요 도로 통제 필요.\n2. B급(High): 돔 인파 1.8만 명 초과 및 밀림 발생.\n3. C급(Medium): 신호 이상 또는 시속 15km 미만.\n시스템은 이러한 조건을 자동으로 일치시켜 SOP를 실행합니다.",
+    "chat_fallback_jury": "심사위원 여러분, 안녕하십니까! 저는 2026 해커톤의 CityAI 코어입니다. 동적 SOP 일치, 스마트 용량 필터링, 다국어 방송 기능을 갖추고 있습니다. 지도해 주셔서 감사합니다. 미래의 도시 대응 시스템을 볼 준비가 되셨습니까?",
+    "chat_fallback_greeting": "지휘관님, 안녕하십니까! 저는 CityAI 교통 컨설턴트(대체 모드)입니다. 실시간 교통 상황 및 SOP를 분석할 준비가 되었습니다. '돔 퇴장'이나 '광푸남로'에 대해 질문해 보세요!",
+    "chat_fallback_weather": "현재 기상청 API와 연결되어 있지 않지만, 기상이변이 신이구 교통망 용량에 미치는 영향을 분석할 수 있습니다. 수해 방지 SOP를 로드할까요?"
   }
 }

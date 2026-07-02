@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import { 
   LayoutDashboard, 
   AlertTriangle, 
-  MessageSquareWarning, 
   Settings, 
   Activity,
-  Car,
-  Users,
   Bell,
-  Globe
+  Globe,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 export default function Layout({ children, headerActions, activeTab, setActiveTab }) {
   const { language, setLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   
   const langOptions = [
@@ -57,6 +58,26 @@ export default function Layout({ children, headerActions, activeTab, setActiveTa
           <div className="topbar-actions">
             {headerActions}
             
+            <button 
+              onClick={toggleTheme}
+              style={{
+                background: 'rgba(56, 189, 248, 0.1)',
+                color: 'var(--accent-primary)',
+                border: '1px solid rgba(56, 189, 248, 0.3)',
+                borderRadius: '50%',
+                width: '32px',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease'
+              }}
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+
             {/* 語系切換 (Custom Dropdown) */}
             <div style={{ position: 'relative' }}>
               <button 
