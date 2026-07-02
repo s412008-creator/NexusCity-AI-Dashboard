@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, Bot, User, Key, Check } from 'lucide-react';
+import { Send, Bot, User, Key, Check, MessageCircle, X } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import sopText from '../data/emergency_traffic_sop.txt?raw';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // 簡單的打字機特效元件
 const Typewriter = ({ text, speed = 30 }) => {
@@ -20,11 +21,15 @@ const Typewriter = ({ text, speed = 30 }) => {
 };
 
 export default function ChatAssistant({ systemStatus }) {
+  const { t, language } = useLanguage();
   // 將金鑰打散以繞過 Github Secret Scanning 阻擋
   const apiKey = "AQ.Ab8" + "RN6JSpXpV-q" + "Oz6_oFf-" + "ufa2IV76" + "7YwHC38g" + "Rxg_JS" + "6gfjsw";
-  const [messages, setMessages] = useState([
-    { role: 'model', content: '您好，我是 CityAI 應變顧問 (Powered by Gemini 1.5 Flash)。我已載入大會交通應變 SOP，請問有什麼我可以幫忙分析的情境嗎？' }
-  ]);
+  const [messages, setMessages] = useState([]);
+  
+  // 初始化與切換語言時更新第一則訊息
+  useEffect(() => {
+    setMessages([{ role: 'model', content: t('chat_init_msg') }]);
+  }, [language]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollContainerRef = useRef(null);
@@ -41,29 +46,34 @@ export default function ChatAssistant({ systemStatus }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setMessages(prev => {
+        // 如果已經有除了初始化之外的訊息，就不插話了
         if (prev.length > 1) return prev;
         return [...prev, { 
           role: 'model', 
-          content: '⚠️ [主動預警] 指揮官您好，我觀測到大巨蛋周邊人流已達峰值 (18,520 人)，且信義區總車流出現攀升趨勢。依據 SOP，建議提早佈署接駁專車，並準備啟動周邊號誌連鎖控制。'
+          content: t('chat_proactive_warning')
         }];
       });
     }, 3500);
     return () => clearTimeout(timer);
-  }, []);
+  }, [language]); // 切換語言時，如果只有一則訊息，會再次觸發，這是可接受的（或者使用者已經送出訊息就不會觸發）
 
   // WOW Factor: 監聽突發事件，AI 主動強行介入 (Proactive AI Override)
   const prevStatusRef = useRef('normal');
   useEffect(() => {
     if (systemStatus?.status === 'alert' && prevStatusRef.current === 'normal') {
       const incident = systemStatus.incident;
+      const overrideMsg = t('chat_alert_override')
+        .replace('{location}', incident?.location || '異常')
+        .replace('{type}', incident?.type || '突發事件');
+        
       setMessages(prev => [...prev, { 
         role: 'model', 
         isTyping: true, // 標記為需要打字特效
-        content: `🚨 [最高權限介入] 偵測到 ${incident?.location || '異常'} 發生「${incident?.type || '突發事件'}」。我已為您自動載入對應 SOP 並推算最佳替代路徑。請在左側決策面板確認是否執行應變計畫？`
+        content: overrideMsg
       }]);
     }
     prevStatusRef.current = systemStatus?.status || 'normal';
-  }, [systemStatus]);
+  }, [systemStatus, language]);
 
   const handleSend = async () => {
     if (!input.trim() || !apiKey) return;
@@ -173,7 +183,7 @@ export default function ChatAssistant({ systemStatus }) {
               <Bot size={14} />
             </div>
             <div style={{ padding: '0.75rem', color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
-              思考中... (Gemini Inference)
+              {t('chat_thinking')}
             </div>
           </div>
         )}
@@ -186,7 +196,7 @@ export default function ChatAssistant({ systemStatus }) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-            placeholder="請輸入狀況，例如：大巨蛋散場遇到雨天..."
+            placeholder={t('chat_placeholder')}
             style={{ 
               flex: 1, padding: '0.75rem', borderRadius: '4px', 
               border: '1px solid var(--panel-border)', background: 'var(--bg-color)', 
