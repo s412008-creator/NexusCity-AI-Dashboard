@@ -20,29 +20,47 @@ export function useCityData() {
     const targetTime = "2026-05-20 20:00";
     
     // 計算該時間點的所有路段總車流
-    let totalTraffic = 0;
+    let initialTotalTraffic = 0;
     trafficParsed.forEach(row => {
       if (row.Timestamp === targetTime) {
-        totalTraffic += parseInt(row.Vehicle_Count || 0, 10);
+        initialTotalTraffic += parseInt(row.Vehicle_Count || 0, 10);
       }
     });
 
     // 找出大巨蛋該時間點的人潮與漫遊用戶比率
-    let domeCrowd = 0;
-    let roamingPct = '0%';
+    let initialDomeCrowd = 0;
+    let initialRoamingPct = '0%';
     crowdParsed.forEach(row => {
       if (row.Timestamp === targetTime && row.BS_ID === 'BS_TPE_DOME') {
-        domeCrowd = parseInt(row.User_Count || 0, 10);
-        roamingPct = row.Roaming_User_Pct || '0%';
+        initialDomeCrowd = parseInt(row.User_Count || 0, 10);
+        initialRoamingPct = row.Roaming_User_Pct || '0%';
       }
     });
 
     setData({
-      totalTraffic,
-      domeCrowd,
-      roamingPct,
+      totalTraffic: initialTotalTraffic,
+      domeCrowd: initialDomeCrowd,
+      roamingPct: initialRoamingPct,
       isLoading: false
     });
+
+    // 即時數據跳動模擬器 (Live Data Simulator)
+    const interval = setInterval(() => {
+      setData(prev => {
+        // 車流隨機增減 -15 ~ +25
+        const trafficDiff = Math.floor(Math.random() * 41) - 15;
+        // 人潮隨機增減 -50 ~ +80
+        const crowdDiff = Math.floor(Math.random() * 131) - 50;
+
+        return {
+          ...prev,
+          totalTraffic: Math.max(0, prev.totalTraffic + trafficDiff),
+          domeCrowd: Math.max(0, prev.domeCrowd + crowdDiff)
+        };
+      });
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return data;

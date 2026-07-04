@@ -3,6 +3,7 @@ import Layout from './components/Layout';
 import IncidentManager from './components/IncidentManager';
 import NotificationModal from './components/NotificationModal';
 import { useCityData } from './hooks/useCityData';
+import { useCountUp } from './hooks/useCountUp';
 import CctvPanel from './components/CctvPanel';
 import AiAlertLog from './components/AiAlertLog';
 import TransitStatus from './components/TransitStatus';
@@ -32,6 +33,8 @@ function App() {
   const { theme, toggleTheme } = useTheme();
 
   const cityData = useCityData();
+  const animatedTraffic = useCountUp(cityData.totalTraffic || 0, 1200);
+  const animatedCrowd = useCountUp(cityData.domeCrowd || 0, 1200);
 
   // 主動預警機制：進入系統後 3 秒，自動彈出 AI 聊天室
   useEffect(() => {
@@ -77,7 +80,7 @@ function App() {
               <div className="stat-info">
                 <h3>{t('stat_traffic_title')}</h3>
                 <div className="value">
-                  {cityData.isLoading ? '...' : cityData.totalTraffic.toLocaleString()} 
+                  {cityData.isLoading ? '...' : animatedTraffic.toLocaleString()} 
                   <span style={{fontSize:'1rem', color:'var(--text-secondary)', marginLeft: '8px'}}>{t('stat_unit_vehicles')}</span>
                 </div>
               </div>
@@ -88,8 +91,8 @@ function App() {
               <div className="stat-info">
                 <h3>{t('stat_crowd_title')}</h3>
                 <div className="value">
-                  {cityData.isLoading ? '...' : cityData.domeCrowd.toLocaleString()} 
-                  <span style={{fontSize:'0.8rem', color:'var(--text-secondary)', marginLeft: '8px', fontWeight: 'normal'}}>
+                  {cityData.isLoading ? '...' : animatedCrowd.toLocaleString()}
+                  <span style={{fontSize:'1rem', color:'var(--text-secondary)', marginLeft: '8px', fontWeight: 500}}>
                     {t('stat_roaming')} {cityData.isLoading ? '-' : cityData.roamingPct}
                   </span>
                 </div>
