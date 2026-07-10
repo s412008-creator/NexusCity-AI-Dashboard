@@ -154,7 +154,7 @@ export default function ChatAssistant({ systemStatus }) {
               width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               background: msg.role === 'user' ? 'var(--accent-primary)' : 'var(--chat-icon-bg)',
-              color: 'white'
+              color: msg.role === 'user' ? 'white' : 'var(--chat-icon-color)'
             }}>
               {msg.role === 'user' ? <User size={16} /> : <Bot size={16} />}
             </div>
@@ -179,7 +179,7 @@ export default function ChatAssistant({ systemStatus }) {
         ))}
         {isLoading && (
           <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <div style={{ width: 24, height: 24, borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--panel-border)' }}>
+            <div style={{ width: 24, height: 24, borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--panel-border)', color: 'var(--chat-icon-color)' }}>
               <Bot size={14} />
             </div>
             <div style={{ padding: '0.75rem', color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
