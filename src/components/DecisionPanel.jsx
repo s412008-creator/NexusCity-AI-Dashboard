@@ -88,36 +88,36 @@ export default function DecisionPanel({ systemStatus }) {
       <div>
         <h4 style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
           <Zap size={14} color="#10b981" />
-          智慧電網與能源調度 (Smart Grid)
+          Smart Grid & Energy Dispatch
         </h4>
         <div style={{ background: 'rgba(16, 185, 129, 0.05)', border: '1px solid rgba(16, 185, 129, 0.3)', padding: '0.75rem 1rem', borderRadius: '4px', fontSize: '0.85rem', borderLeft: '3px solid #10b981' }}>
-          <strong style={{color: '#10b981'}}>啟動微電網保護協議：</strong><br/>
-          <span style={{color: 'var(--text-secondary)'}}>自動切斷事故封鎖區非必要設施供電，減少能源浪費。</span><br/>
-          <span style={{color: 'var(--text-primary)'}}>已將備用電力優先導向鄰近醫療院所與避難中心。</span>
+          <strong style={{color: '#10b981'}}>Microgrid Protection Protocol Initiated:</strong><br/>
+          <span style={{color: 'var(--text-secondary)'}}>Automatically cutting non-essential power in the incident zone to prevent energy waste.</span><br/>
+          <span style={{color: 'var(--text-primary)'}}>Backup power prioritized and routed to nearby hospitals and shelters.</span>
         </div>
       </div>
 
       <div>
         <h4 style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
           <HeartPulse size={14} color="#ec4899" />
-          生醫資料平台連線 (Biomedical Data Platform)
+          Biomedical Data Platform Link
         </h4>
         <div style={{ background: 'rgba(236, 72, 153, 0.05)', border: '1px solid rgba(236, 72, 153, 0.3)', padding: '0.75rem 1rem', borderRadius: '4px', fontSize: '0.85rem', borderLeft: '3px solid #ec4899' }}>
-          <strong style={{color: '#ec4899'}}>醫療量能動態平衡啟動：</strong><br/>
-          <span style={{color: 'var(--text-secondary)'}}>連線區域生醫庫分析急診滿載率。因 A 院急診瀕臨滿載，</span><br/>
-          <span style={{color: 'var(--text-primary)'}}>AI 已將後續救護車自動導向 B 院，並同步預傳傷患檢傷分類。</span>
+          <strong style={{color: '#ec4899'}}>Dynamic Medical Capacity Balancing:</strong><br/>
+          <span style={{color: 'var(--text-secondary)'}}>Connected to regional biomedical DB to analyze ER capacity. Hospital A ER reaching limit;</span><br/>
+          <span style={{color: 'var(--text-primary)'}}>AI has redirected inbound ambulances to Hospital B and pre-transmitted triage data.</span>
         </div>
       </div>
 
       <div>
         <h4 style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
           <Plane size={14} color="#f59e0b" />
-          無人機自動派遣與數字孿生 (Autonomous Drone & Digital Twin)
+          Autonomous Drone & Digital Twin
         </h4>
         <div style={{ background: 'rgba(245, 158, 11, 0.05)', border: '1px solid rgba(245, 158, 11, 0.3)', padding: '0.75rem 1rem', borderRadius: '4px', fontSize: '0.85rem', borderLeft: '3px solid #f59e0b' }}>
-          <strong style={{color: '#f59e0b'}}>數字孿生 3D 建模啟動：</strong><br/>
-          <span style={{color: 'var(--text-secondary)'}}>已自動派遣 3 架探勘無人機前往現場，結合 IoT 感測器，</span><br/>
-          <span style={{color: 'var(--text-primary)'}}>正將災區破壞程度即時同步至本系統之數字孿生模型。</span>
+          <strong style={{color: '#f59e0b'}}>Digital Twin 3D Modeling Initiated:</strong><br/>
+          <span style={{color: 'var(--text-secondary)'}}>Dispatched 3 scout drones to the scene. Integrating with IoT sensors,</span><br/>
+          <span style={{color: 'var(--text-primary)'}}>damage assessments are being mapped onto the Digital Twin model in real-time.</span>
         </div>
       </div>
 

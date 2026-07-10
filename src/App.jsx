@@ -118,10 +118,10 @@ function App() {
                 {isNormal ? <Leaf size={24} /> : <Zap size={24} className="animate-pulse" />}
               </div>
               <div className="stat-info">
-                <h3>{isNormal ? '環境與碳排監控' : '智慧電網調度中'}</h3>
+                <h3>{isNormal ? 'Env & Carbon Monitor' : 'Smart Grid Active'}</h3>
                 <div className="value" style={{ color: isNormal ? 'var(--text-primary)' : '#10b981', display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                  {isNormal ? '監測中' : `+${co2Saved.toFixed(2)}`}
-                  {!isNormal && <span style={{fontSize:'0.9rem', color:'var(--text-secondary)'}}>噸 (減少碳排)</span>}
+                  {isNormal ? 'Monitoring' : `+${co2Saved.toFixed(2)}`}
+                  {!isNormal && <span style={{fontSize:'0.9rem', color:'var(--text-secondary)'}}>tons (CO2 Saved)</span>}
                 </div>
               </div>
             </div>
