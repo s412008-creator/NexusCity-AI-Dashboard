@@ -29,7 +29,7 @@ export default function DecisionPanel({ systemStatus }) {
     sopContent = (
       <>
         <span style={{color: 'var(--text-secondary)'}}>{t('sop_desc_road_accident_1')}</span> <b style={{color: 'var(--text-primary)'}}>{alternatives.length > 0 ? alternatives.join(', ') : t('nearby_roads')}</b>。<br/>
-        <span style={{color: 'var(--text-secondary)'}}>{t('cms_suggestion')}：</span><span style={{color: 'var(--text-primary)'}}>"{incident.location}{t('road_closed_delay', { time: baseClearance + penalty })}"</span>
+        <span style={{color: 'var(--text-secondary)'}}>{t('cms_suggestion')}：</span><span style={{color: 'var(--text-primary)'}}>"{incident.location}{t('road_closed_delay')} {baseClearance + penalty} {t('minutes')}"</span>
       </>
     );
   } else if (incident.type === 'Crowd_Surge_Injury') {
