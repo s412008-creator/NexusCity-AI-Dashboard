@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Clock, Activity, Target } from 'lucide-react';
+import { BookOpen, Clock, Activity, Target, Zap } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function DecisionPanel({ systemStatus }) {
@@ -82,6 +82,18 @@ export default function DecisionPanel({ systemStatus }) {
         <div style={{ background: 'var(--bg-color)', border: '1px solid var(--panel-border)', padding: '0.75rem 1rem', borderRadius: '4px', fontSize: '0.85rem', borderLeft: '3px solid var(--accent-primary)' }}>
           <strong style={{color: 'var(--text-primary)'}}>{sopTitle}：</strong><br/>
           {sopContent}
+        </div>
+      </div>
+
+      <div>
+        <h4 style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <Zap size={14} color="#10b981" />
+          智慧電網與能源調度 (Smart Grid)
+        </h4>
+        <div style={{ background: 'rgba(16, 185, 129, 0.05)', border: '1px solid rgba(16, 185, 129, 0.3)', padding: '0.75rem 1rem', borderRadius: '4px', fontSize: '0.85rem', borderLeft: '3px solid #10b981' }}>
+          <strong style={{color: '#10b981'}}>啟動微電網保護協議：</strong><br/>
+          <span style={{color: 'var(--text-secondary)'}}>自動切斷事故封鎖區非必要設施供電，減少能源浪費。</span><br/>
+          <span style={{color: 'var(--text-primary)'}}>已將備用電力優先導向鄰近醫療院所與避難中心。</span>
         </div>
       </div>
 

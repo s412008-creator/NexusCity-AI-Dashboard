@@ -14,7 +14,7 @@ const TrafficChart = lazy(() => import('./components/TrafficChart'));
 const ChatAssistant = lazy(() => import('./components/ChatAssistant'));
 const DecisionPanel = lazy(() => import('./components/DecisionPanel'));
 const NetworkMap = lazy(() => import('./components/NetworkMap'));
-import { Users, Car, AlertTriangle, ShieldCheck, MessageCircle, X } from 'lucide-react';
+import { Users, Car, AlertTriangle, ShieldCheck, MessageCircle, X, Leaf, Zap } from 'lucide-react';
 import './App.css';
 import { useLanguage } from './contexts/LanguageContext';
 import { useTheme } from './contexts/ThemeContext';
@@ -35,6 +35,20 @@ function App() {
   const cityData = useCityData();
   const animatedTraffic = useCountUp(cityData.totalTraffic || 0, 1200);
   const animatedCrowd = useCountUp(cityData.domeCrowd || 0, 1200);
+
+  // 永續減碳指標 (CO2 Saved)
+  const [co2Saved, setCo2Saved] = useState(0);
+  useEffect(() => {
+    if (!isNormal) {
+      // 模擬 AI 介入疏導後，隨著時間持續省下的 CO2 排放量 (噸)
+      const interval = setInterval(() => {
+        setCo2Saved(prev => parseFloat((prev + 0.05).toFixed(2)));
+      }, 1500);
+      return () => clearInterval(interval);
+    } else {
+      setCo2Saved(0);
+    }
+  }, [isNormal]);
 
   // 主動預警機制：進入系統後 3 秒，自動彈出 AI 聊天室
   useEffect(() => {
@@ -99,11 +113,16 @@ function App() {
               </div>
             </div>
 
-            <div className="col-span-3 glass-panel stat-card animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <div className="stat-icon"><ShieldCheck size={24} /></div>
+            <div className="col-span-3 glass-panel stat-card animate-fade-in" style={{ animationDelay: '0.3s', borderColor: isNormal ? '' : '#10b981' }}>
+              <div className="stat-icon" style={{ color: isNormal ? 'var(--text-secondary)' : '#10b981' }}>
+                {isNormal ? <Leaf size={24} /> : <Zap size={24} className="animate-pulse" />}
+              </div>
               <div className="stat-info">
-                <h3>{t('stat_ai_level_title')}</h3>
-                <div className="value">{t('stat_sop_monitoring')}</div>
+                <h3>{isNormal ? '環境與碳排監控' : '智慧電網調度中'}</h3>
+                <div className="value" style={{ color: isNormal ? 'var(--text-primary)' : '#10b981', display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+                  {isNormal ? '監測中' : `+${co2Saved.toFixed(2)}`}
+                  {!isNormal && <span style={{fontSize:'0.9rem', color:'var(--text-secondary)'}}>噸 (減少碳排)</span>}
+                </div>
               </div>
             </div>
 
